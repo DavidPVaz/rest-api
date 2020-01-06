@@ -3,6 +3,7 @@
         "es6": true,
         "node": true
     },
+    "root": true,
     "extends": [
         "airbnb-base"
     ],
@@ -15,5 +16,21 @@
         "sourceType": "module"
     },
     "rules": {
+        "indent": ["error", 4],
+        "comma-dangle": ["error", "never"],
+        "consistent-return": ["off"],
+        "arrow-parens": ["error", "as-needed"],
+        "semi-spacing": ["error", {"before": false, "after": true}],
+        "space-in-parens": ["error", "never"],
+        "object-curly-spacing": ["error", "always", { "objectsInObjects": false }],
+        "array-bracket-spacing": ["error", "always"],
+        "space-before-function-paren": ["error", {"anonymous": "never", "named": "never", "asyncArrow": "always"}],
+        "comma-spacing": ["error", { "before": false, "after": true }],
+        "space-before-blocks": ["error", "always"],
+        "arrow-spacing": ["error", { "before": true, "after": true }],
+        "keyword-spacing": ["error", {"before": true, "after": true}],
+        "key-spacing": ["error", { "beforeColon": false, "afterColon": true, "mode": "strict"}],
+        "func-call-spacing": ["error", "never"],
+        "no-console": ["off"]
     }
 }

@@ -4,13 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon src/index.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/DavidPVaz/restAPI.git"
   },
-  "author": "David Vaz",
+  "author": "David Vaz <davidzav13@gmail.com>",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/DavidPVaz/restAPI/issues"
