@@ -344,6 +344,9 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
+#tls properties in config folder
+config/tls
+
 
 # Dependency directories
 node_modules/
