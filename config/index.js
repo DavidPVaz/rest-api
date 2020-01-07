@@ -10,6 +10,7 @@ const secret = Buffer.from(crypto.randomBytes(256).toString('base64'), 'base64')
 
 export default {
     key: tls.key,
-    cert: tls.cert,
-    secret
+    cert: tls.cert
 };
+
+export { secret };

@@ -1,17 +1,10 @@
 import dotenv from 'dotenv';
-import { generateHash, validatePassword } from '../utils';
+import { server } from './server';
 
 dotenv.config();
 
-async function test() {
-    const password = '123';
-    const hashed = await generateHash(password);
+const port = process.env.PORT || 8888;
 
-    console.log('hashed: ', hashed);
-
-    const result = await validatePassword(password, hashed);
-
-    console.log('result: ', result);
-}
-
-test();
+server.listen(port, () => {
+    console.log(`Server has started on port ${port}...`);
+});
