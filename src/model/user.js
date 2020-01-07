@@ -1,6 +1,6 @@
 const User = (function () {
 
-    const privateProperties = new Map();
+    const privateProperties = new WeakMap();
 
     class User {
         constructor(username, email, password) {

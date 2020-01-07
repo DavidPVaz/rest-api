@@ -4,6 +4,7 @@ import cors from 'cors';
 import tlsCredentials from '../../config';
 
 import { validateLoginParameters } from '../../utils/validation';
+import UserController from '../controller/user';
 
 const app = express();
 
@@ -16,6 +17,10 @@ app.use(cors({
     methods: [ 'GET', 'POST', 'PUT', 'DELETE' ],
     maxAge: 3600
 }));
+
+app.get('/api/user/:username', UserController.get);
+app.get('/api/user', UserController.list);
+app.post('/api/user', UserController.create);
 
 app.post('/api', (req, res) => {
     const { error } = validateLoginParameters(req);

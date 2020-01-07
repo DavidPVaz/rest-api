@@ -6,13 +6,13 @@ function listUsers() {
     return inMemoyDb;
 }
 
-function getUser({ username }) {
+function getUser(username) {
     return inMemoyDb.find(function (user) {
         return user.getUsername() === username;
     });
 }
 
-function deleteUser({ username }) {
+function deleteUser(username) {
     inMemoyDb = inMemoyDb.filter(function (user) {
 
         if (user.getUsername() === username) {
@@ -23,15 +23,15 @@ function deleteUser({ username }) {
     });
 }
 
-function editUser(username, userUpdated) {
+function editUser(username, updatedUser) {
     for (let user in inMemoyDb) {
         if (user.getUsername() === username) {
-            Object.assign(user, userUpdated);
+            Object.assign(user, updatedUser);
         }
     }
 }
 
-function createUser({ username, email, password }) {
+function createUser(username, email, password) {
     inMemoyDb.push(new User(username, email, password));
 }
 
