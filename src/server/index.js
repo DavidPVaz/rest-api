@@ -16,18 +16,6 @@ app.use(cors({
 }));
 
 app.use('/', Router);
-/*
-app.post('/api', (req, res) => {
-    const { error } = validateLoginParameters(req);
-
-    if (error) {
-        return res.status(400).send(error.details[0].message);
-    }
-
-    return res.send("Yay");
-
-});
-*/
 
 const server = https.createServer(tlsCredentials, app);
 

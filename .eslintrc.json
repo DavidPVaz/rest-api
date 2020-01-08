@@ -42,6 +42,7 @@
         "no-shadow": "off",
         "eqeqeq": ["error", "always"],
         "newline-per-chained-call": "off",
-        "prefer-arrow-callback":"off"
+        "prefer-arrow-callback":"off",
+        "object-curly-newline":"off"
     }
 }
