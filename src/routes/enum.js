@@ -1,7 +1,7 @@
 export default {
-    getUserList: '/user',
-    getUser: '/user/:username',
-    postUser: '/user',
-    putUser: '/user/:username',
-    deleteUser: '/user/:username'
+    getUserList: '/api/user',
+    getUser: '/api/user/:username',
+    postUser: '/api/user',
+    putUser: '/api/user/:username',
+    deleteUser: '/api/user/:username'
 };

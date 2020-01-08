@@ -7,7 +7,7 @@ function list(request, response) {
         return response.status(200).send(list);
         
     } catch (error) {
-        return response.status(404).send(error.message);
+        return response.status(204).send(error.message);
     }
 }
 
