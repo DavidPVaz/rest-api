@@ -1,6 +1,7 @@
 import https from 'https';
 import express from 'express';
 import cors from 'cors';
+import dotenv from 'dotenv';
 /*
 import { Router } from '../routes';
 */
@@ -14,6 +15,7 @@ import UserController from '../controller/user';
 import { validateLoginParameters } from '../../utils/validation';
 */
 
+dotenv.config();
 const app = express();
 
 app.disable('x-powered-by');
