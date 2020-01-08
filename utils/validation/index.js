@@ -7,10 +7,10 @@ export function validateLoginParameters({ body }) {
         email: Joi.string().max(30).email().required(),
         password: Joi.string().regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[.,!@#$%^&*])(?=.{8,})/).required().error(() => {
             const error = Error();
-            error.details = [{message: 'Password must have a minimum of 8 characters and contain at least: one lower case letter, one upper case letter, one number, one special character(.,!@#$%^&*)'}];
+            error.details = [ { message: 'Password must have a minimum of 8 characters and contain at least: one lower case letter, one upper case letter, one number, one special character(.,!@#$%^&*)' } ];
             return error;
         })
     });
     
     return schema.validate(body);
-};
+}

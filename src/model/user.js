@@ -1,48 +1,33 @@
-const User = (function () {
-
-    const privateProperties = new WeakMap();
-
-    class User {
-        constructor(username, email, password) {
-            privateProperties.set(this, {
-                username,
-                email,
-                password
-            });
-        }
-
-        static delete(user) {
-            privateProperties.delete(user);
-        }
-
-        getUsername() {
-            return privateProperties.get(this).username;
-        }
-
-        getEmail() {
-            return privateProperties.get(this).email;
-        }
-
-        getPassword() {
-            return privateProperties.get(this).password;
-        }
-
-        setUsername(newUsername) {
-            privateProperties.get(this).username = newUsername;
-        }
-
-        setEmail(newEmail) {
-            privateProperties.get(this).email = newEmail;
-        }
-
-        setPassword(newPassword) {
-            privateProperties.get(this).password = newPassword;
-        }
-
+class User {
+    constructor(username, email, password) {
+        this.username = username;
+        this.email = email;
+        this.password = password;
     }
 
-    return User;
+    getUsername() {
+        return this.username;
+    }
 
-})();
+    getEmail() {
+        return this.email;
+    }
+
+    getPassword() {
+        return this.password;
+    }
+
+    setUsername(newUsername) {
+        this.username = newUsername;
+    }
+
+    setEmail(newEmail) {
+        this.email = newEmail;
+    }
+
+    setPassword(newPassword) {
+        this.password = newPassword;
+    }
+}
 
 export { User };

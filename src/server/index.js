@@ -3,7 +3,9 @@ import express from 'express';
 import cors from 'cors';
 import tlsCredentials from '../../config';
 
+/*
 import { validateLoginParameters } from '../../utils/validation';
+*/
 import UserController from '../controller/user';
 
 const app = express();
@@ -21,7 +23,9 @@ app.use(cors({
 app.get('/api/user/:username', UserController.get);
 app.get('/api/user', UserController.list);
 app.post('/api/user', UserController.create);
-
+app.put('/api/user/:username', UserController.edit);
+app.delete('/api/user/:username', UserController.deleteUser);
+/*
 app.post('/api', (req, res) => {
     const { error } = validateLoginParameters(req);
 
@@ -32,6 +36,7 @@ app.post('/api', (req, res) => {
     return res.send("Yay");
 
 });
+*/
 
 const server = https.createServer(tlsCredentials, app);
 
