@@ -1,12 +1,18 @@
 import https from 'https';
 import express from 'express';
 import cors from 'cors';
+/*
+import { Router } from '../routes';
+*/
 import tlsCredentials from '../../config';
+
+
+import Routes from '../routes/enum';
+import UserController from '../controller/user';
 
 /*
 import { validateLoginParameters } from '../../utils/validation';
 */
-import UserController from '../controller/user';
 
 const app = express();
 
@@ -20,11 +26,13 @@ app.use(cors({
     maxAge: 3600
 }));
 
-app.get('/api/user/:username', UserController.get);
-app.get('/api/user', UserController.list);
-app.post('/api/user', UserController.create);
-app.put('/api/user/:username', UserController.edit);
-app.delete('/api/user/:username', UserController.deleteUser);
+
+app.get(process.env.API_BASE + Routes.getUserList, UserController.list);
+app.get(process.env.API_BASE + Routes.getUser, UserController.get);
+app.post(process.env.API_BASE + Routes.postUser, UserController.create);
+app.put(process.env.API_BASE + Routes.putUser, UserController.edit);
+app.delete(process.env.API_BASE + Routes.deleteUser, UserController.deleteUser);
+
 /*
 app.post('/api', (req, res) => {
     const { error } = validateLoginParameters(req);
