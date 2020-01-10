@@ -1,5 +1,6 @@
 import { loginFieldsValidation, requiredFieldsValidation, fieldsValidation } from '../../utils/validation';
 import { generateHash } from '../../utils/hash';
+import { compare } from '../../utils/authentication';
 
 function loginParametersValidation(request, response, next) {
 
@@ -35,4 +36,21 @@ async function hashPassword(request, response, next) {
     next();
 }
 
-export { loginParametersValidation, requestValidation, hashPassword };
+function isValidToken({ headers }, response, next) {
+
+    const token = headers['authentication-jwt'];
+
+    if (!token) {
+        return response.status(401).send('No authentication token provided.');
+    }
+
+    try {
+        compare(token);
+        next();
+    } catch (error) {
+        return response.status(401).send(error.message);
+    }
+
+}
+
+export { loginParametersValidation, requestValidation, hashPassword, isValidToken };

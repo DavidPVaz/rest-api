@@ -6,7 +6,7 @@ function sign(username) {
 }
 
 function compare(token) {
-    jsonWebToken.verify(token, secret);
+    return jsonWebToken.verify(token, secret);
 }
 
 export { sign, compare };

@@ -6,7 +6,7 @@ async function login({ body }, response) {
 
     try {
         const token = await authenticationService.authenticate(username, password);
-        return response.header('authorization-header', token);
+        return response.status(200).append('authentication-jwt', token).end();
         
     } catch (error) {
         return response.status(401).send(error.message);

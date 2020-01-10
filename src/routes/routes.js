@@ -1,6 +1,6 @@
 import userController from '../controller/user';
 import authenticationController from '../controller/authentication';
-import { loginParametersValidation, requestValidation, hashPassword } from '../middleware';
+import { loginParametersValidation, isValidToken, requestValidation, hashPassword } from '../middleware';
 
 const login = {
     path: '/api/login',
@@ -10,28 +10,28 @@ const login = {
 
 const getUserList = {
     path: '/api/user',
-    middleware: [],
+    middleware: [ isValidToken ],
     handler: userController.list
 };
 
 const getUser = {
     path: '/api/user/:username',
-    middleware: [],
+    middleware: [ isValidToken ],
     handler: userController.get
 };
 const postUser = {
     path: '/api/user',
-    middleware: [ requestValidation, hashPassword ],
+    middleware: [ isValidToken, requestValidation, hashPassword ],
     handler: userController.create
 };
 const putUser = {
     path: '/api/user/:username',
-    middleware: [ requestValidation, hashPassword ],
+    middleware: [ isValidToken, requestValidation, hashPassword ],
     handler: userController.edit
 };
 const deleteUser = {
     path: '/api/user/:username',
-    middleware: [],
+    middleware: [ isValidToken ],
     handler: userController.deleteUser
 };
 
