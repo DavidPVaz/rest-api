@@ -1,12 +1,12 @@
 import express from 'express';
-import Routes from './routes';
+import routes from './routes';
 
-const Router = express.Router();
+const router = express.Router();
 
-Router.get(Routes.getUserList.path, Routes.getUserList.handler);
-Router.get(Routes.getUser.path, Routes.getUser.handler);
-Router.post(Routes.postUser.path, Routes.postUser.middleware, Routes.postUser.handler);
-Router.put(Routes.putUser.path, Routes.putUser.middleware, Routes.putUser.handler);
-Router.delete(Routes.deleteUser.path, Routes.deleteUser.handler);
+router.get(routes.getUserList.path, routes.getUserList.handler);
+router.get(routes.getUser.path, routes.getUser.handler);
+router.post(routes.postUser.path, routes.postUser.middleware, routes.postUser.handler);
+router.put(routes.putUser.path, routes.putUser.middleware, routes.putUser.handler);
+router.delete(routes.deleteUser.path, routes.deleteUser.handler);
 
-export { Router };
+export { router };

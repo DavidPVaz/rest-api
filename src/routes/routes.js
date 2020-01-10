@@ -1,31 +1,31 @@
-import UserController from '../controller/user';
+import userController from '../controller/user';
 import { requestValidation } from '../middleware';
 
 const getUserList = {
     path: '/api/user',
     middleware: [],
-    handler: UserController.list
+    handler: userController.list
 };
 
 const getUser = {
     path: '/api/user/:username',
     middleware: [],
-    handler: UserController.get
+    handler: userController.get
 };
 const postUser = {
     path: '/api/user',
     middleware: [ requestValidation ],
-    handler: UserController.create
+    handler: userController.create
 };
 const putUser = {
     path: '/api/user/:username',
     middleware: [ requestValidation ],
-    handler: UserController.edit
+    handler: userController.edit
 };
 const deleteUser = {
     path: '/api/user/:username',
     middleware: [],
-    handler: UserController.deleteUser
+    handler: userController.deleteUser
 };
 
 export default { 

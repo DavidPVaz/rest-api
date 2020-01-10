@@ -1,8 +1,8 @@
-import UserDao from '../dao/user';
+import userDao from '../dao/user';
 
 function list() {
 
-    const list = UserDao.listUsers();
+    const list = userDao.listUsers();
 
     if (list.length === 0) {
         throw Error('No users to list.');
@@ -13,7 +13,7 @@ function list() {
 
 function get(username) {
 
-    const user = UserDao.getUser(username);
+    const user = userDao.getUser(username);
 
     if (!user) {
         throw Error(`Username ${username} was not found`);
@@ -23,29 +23,36 @@ function get(username) {
 }
 
 function create({ username, email, password }) {
-    UserDao.createUser(username, email, password);
+
+    const user = userDao.getUser(username);
+
+    if (user) {
+        throw Error('That username already exists.');
+    }
+
+    userDao.createUser(username, email, password);
 }
 
 function edit(username, updatedUser) {
 
-    const user = UserDao.getUser(username);
+    const user = userDao.getUser(username);
 
     if (!user) {
         throw Error(`Username ${username} was not found`);
     }
 
-    UserDao.editUser(username, updatedUser);
+    userDao.editUser(username, updatedUser);
 }
 
 function deleteUser(username) {
 
-    const user = UserDao.getUser(username);
+    const user = userDao.getUser(username);
 
     if (!user) {
         throw Error(`Username ${username} was not found`);
     }
 
-    UserDao.deleteUser(username);
+    userDao.deleteUser(username);
 }
 
 export default {

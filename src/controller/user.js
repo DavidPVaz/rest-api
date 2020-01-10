@@ -1,9 +1,9 @@
-import UserService from '../service/user';
+import userService from '../service/user';
 
 function list(request, response) {
 
     try {
-        const list = UserService.list();
+        const list = userService.list();
         return response.status(200).send(list);
         
     } catch (error) {
@@ -16,7 +16,7 @@ function get({ params }, response) {
     const { username } = params;
 
     try {
-        const user = UserService.get(username);
+        const user = userService.get(username);
         return response.status(200).send(user);
 
     } catch (error) {
@@ -24,17 +24,23 @@ function get({ params }, response) {
     }
 }
 
-function create({ body }, response) {
-    UserService.create(body);
-    return response.status(201).end();
+function create({ body: user }, response) {
+
+    try {
+        userService.create(user);
+        return response.status(201).end();
+        
+    } catch (error) {
+        return response.status(400).send(error.message);
+    }
 }
 
-function edit({ params, body }, response) {
+function edit({ params, body: user }, response) {
 
     const { username } = params;
 
     try {
-        UserService.edit(username, body);
+        userService.edit(username, user);
         return response.status(204).end();
         
     } catch (error) {
@@ -47,7 +53,7 @@ function deleteUser({ params }, response) {
     const { username } = params;
 
     try {
-        UserService.deleteUser(username);
+        userService.deleteUser(username);
         return response.status(204).end();
 
     } catch (error) {
