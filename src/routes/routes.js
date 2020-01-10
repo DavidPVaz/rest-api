@@ -1,5 +1,12 @@
 import userController from '../controller/user';
-import { requestValidation, hashPassword } from '../middleware';
+import authenticationController from '../controller/authentication';
+import { loginParametersValidation, requestValidation, hashPassword } from '../middleware';
+
+const login = {
+    path: '/api/login',
+    middleware: [ loginParametersValidation ],
+    handler: authenticationController.login
+};
 
 const getUserList = {
     path: '/api/user',
@@ -28,7 +35,8 @@ const deleteUser = {
     handler: userController.deleteUser
 };
 
-export default { 
+export default {
+    login, 
     getUserList, 
     getUser, 
     postUser, 
