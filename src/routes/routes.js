@@ -1,5 +1,5 @@
 import userController from '../controller/user';
-import { requestValidation } from '../middleware';
+import { requestValidation, hashPassword } from '../middleware';
 
 const getUserList = {
     path: '/api/user',
@@ -14,12 +14,12 @@ const getUser = {
 };
 const postUser = {
     path: '/api/user',
-    middleware: [ requestValidation ],
+    middleware: [ requestValidation, hashPassword ],
     handler: userController.create
 };
 const putUser = {
     path: '/api/user/:username',
-    middleware: [ requestValidation ],
+    middleware: [ requestValidation, hashPassword ],
     handler: userController.edit
 };
 const deleteUser = {
