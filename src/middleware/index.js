@@ -32,7 +32,12 @@ async function hashPassword(request, response, next) {
         next();
     }
 
-    request.body.password = await generateHash(password);
+    try {
+        request.body.password = await generateHash(password);
+    } catch (error) {
+        return response.status(500).send(error.message);
+    }
+
     next();
 }
 
@@ -46,11 +51,11 @@ function isValidToken({ headers }, response, next) {
 
     try {
         compare(token);
-        next();
     } catch (error) {
         return response.status(401).send(error.message);
     }
 
+    next();
 }
 
 export { loginParametersValidation, requestValidation, hashPassword, isValidToken };
