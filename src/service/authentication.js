@@ -5,7 +5,7 @@ import { sign } from '../../utils/authentication';
 async function authenticate(username, password) {
 
     const user = userService.get(username);
-    const validationResult = await validatePassword(user.getPasword(), password);
+    const validationResult = await validatePassword(password, user.getPassword());
 
     if (!user || !validationResult) {
         throw Error('Invalid credentials.');

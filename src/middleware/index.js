@@ -41,7 +41,7 @@ function isValidToken({ headers }, response, next) {
     const token = headers['authentication-jwt'];
 
     if (!token) {
-        return response.status(401).send('No authentication token provided.');
+        return response.status(401).send('No authentication token provided. Login first at: /api/login');
     }
 
     try {

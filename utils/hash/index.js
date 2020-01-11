@@ -5,8 +5,8 @@ async function generateHash(password) {
     return bcrypt.hash(password, salt);
 }
 
-async function validatePassword(password, hashedPassword) {
-    return bcrypt.compare(password, hashedPassword);
+async function validatePassword(providedPassword, userPassword) {
+    return bcrypt.compare(providedPassword, userPassword);
 }
 
 export { generateHash, validatePassword };

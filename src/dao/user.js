@@ -1,6 +1,7 @@
 import { User } from '../model/user';
 
-let inMemoyDb = [ new User('david', 'david@gmail.com', '1234'), new User('rute', 'rute@gmail.com', '5678') ];
+let inMemoyDb = [ new User('david', 'david@gmail.com', '$2b$10$XU.gFy6ZHLb8.r4WvTxMdO8eq4uVq.0dGmJCXfzcJ9bZ1E0AF8phO'), 
+    new User('rute', 'rute@gmail.com', '$2b$10$XU.gFy6ZHLb8.r4WvTxMdO8eq4uVq.0dGmJCXfzcJ9bZ1E0AF8phO') ];
 
 function listUsers() {
     return inMemoyDb;

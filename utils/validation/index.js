@@ -33,12 +33,8 @@ function fieldsValidation({ body }) {
 function loginFieldsValidation({ body }) {
 
     const schema = Joi.object({
-        username: Joi.string().alphanum().min(3).max(20).required(),
-        password: Joi.string().regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[.,!@#$%^&*])(?=.{8,})/).required().error(() => {
-            const error = Error();
-            error.details = [ { message: 'Password must have a minimum of 8 characters and contain at least: one lower case letter, one upper case letter, one number, one special character(.,!@#$%^&*)' } ];
-            return error;
-        })
+        username: Joi.string().required(),
+        password: Joi.string().required()
     });
     
     return schema.validate(body);
