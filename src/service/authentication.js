@@ -4,10 +4,18 @@ import { sign } from '../../utils/authentication';
 
 async function authenticate(username, password) {
 
-    const user = userService.get(username);
-    const validationResult = await validatePassword(password, user.getPassword());
+    let user;
 
-    if (!user || !validationResult) {
+    try {
+        user = userService.get(username);
+
+        const isValid = await validatePassword(password, user.getPassword());
+        
+        if (!isValid) {
+            throw Error();
+        }
+        
+    } catch (error) {
         throw Error('Invalid credentials.');
     }
 

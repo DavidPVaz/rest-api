@@ -1,8 +1,8 @@
 import authenticationService from '../service/authentication';
 
-async function login({ body }, response) {
+async function login({ body: user }, response) {
 
-    const { username, password } = body;
+    const { username, password } = user;
 
     try {
         const token = await authenticationService.authenticate(username, password);

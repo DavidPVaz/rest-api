@@ -15,7 +15,7 @@ app.use(cors({
     methods: [ 'GET', 'POST', 'PUT', 'DELETE' ]
 }));
 
-app.use('/', router);
+app.use(router);
 
 const server = https.createServer(tlsCredentials, app);
 
