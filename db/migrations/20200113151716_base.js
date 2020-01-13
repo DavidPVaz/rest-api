@@ -1,14 +1,14 @@
 exports.up = async function(knex) {
-    return knex.schema.createTable('user', table => {
+    return knex.schema.createTable('users', table => {
         table.increments().primary();
         table.string('username').unique().notNullable();
-        table.string('password');
-        table.string('email').unique();
+        table.string('password').notNullable();
+        table.string('email').unique().notNullable();
         table.boolean('is_admin').notNullable().defaultTo(false);
         table.timestamps();
     });
 };
 
 exports.down = async function(knex) {
-    return knex.schema.dropTableIfExists('user');
+    return knex.schema.dropTableIfExists('users');
 };
