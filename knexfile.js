@@ -1,7 +1,7 @@
 const KnexConfig = {
 
     development: {
-        client: 'postgresql',
+        client: 'pg',
         connection: {
             database: 'my_db',
             user: 'username',
@@ -22,4 +22,4 @@ const KnexConfig = {
     }
 };
 
-export { KnexConfig };
+module.exports = KnexConfig;
