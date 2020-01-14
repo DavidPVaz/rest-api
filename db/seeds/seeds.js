@@ -6,7 +6,7 @@ exports.seed = async function(knex) {
             username: 'david',
             password: '$2b$10$XU.gFy6ZHLb8.r4WvTxMdO8eq4uVq.0dGmJCXfzcJ9bZ1E0AF8phO', 
             email: 'dummy_email@gmail.com',
-            is_admin: true
+            admin: true
         },
         {
             id: 2,

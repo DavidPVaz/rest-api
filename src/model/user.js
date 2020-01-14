@@ -1,32 +1,29 @@
-class User {
-    constructor(username, email, password) {
-        this.username = username;
-        this.email = email;
-        this.password = password;
+import { BaseModel } from './base-model';
+
+class User extends BaseModel {
+
+    static get tableName() {
+        return 'users';
     }
 
-    getUsername() {
-        return this.username;
+    static get jsonSchema() {
+        return {
+            type: 'object',
+            required: [ 'username', 'password', 'email' ],
+            properties: {
+                id: { type: 'integer' },
+                username: { type: 'string' },
+                password: { type: 'string' },
+                email: { type: 'string' },
+                admin: { type: 'boolean' }
+            }
+        };
     }
+    
+    $formatJson(json) {
+        const { password, admin, ...result } = super.$formatJson(json);
 
-    getEmail() {
-        return this.email;
-    }
-
-    getPassword() {
-        return this.password;
-    }
-
-    setUsername(newUsername) {
-        this.username = newUsername;
-    }
-
-    setEmail(newEmail) {
-        this.email = newEmail;
-    }
-
-    setPassword(newPassword) {
-        this.password = newPassword;
+        return result;
     }
 }
 
