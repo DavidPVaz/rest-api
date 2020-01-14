@@ -1,8 +1,8 @@
 import jsonWebToken from 'jsonwebtoken';
 import { secret } from '../../config';
 
-function sign(username) {
-    return jsonWebToken.sign({ username }, secret, { expiresIn: '30m' });
+function sign(id, username, admin) {
+    return jsonWebToken.sign({ id, username, admin }, secret, { expiresIn: '30m' });
 }
 
 function compare(token) {

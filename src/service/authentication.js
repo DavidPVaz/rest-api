@@ -7,9 +7,9 @@ async function authenticate(username, password) {
     let user;
 
     try {
-        user = userService.get(username);
+        user = await userService.get(username);
 
-        const isValid = await validatePassword(password, user.getPassword());
+        const isValid = await validatePassword(password, user.password);
         
         if (!isValid) {
             throw Error();
@@ -19,7 +19,7 @@ async function authenticate(username, password) {
         throw Error('Invalid credentials.');
     }
 
-    return sign(user.getUsername());
+    return sign(user.id, user.username, user.admin);
 }
 
 export default { 

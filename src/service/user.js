@@ -18,18 +18,18 @@ async function list() {
     return list;
 }
 
-async function get(id) {
+async function get(field) {
 
     let user;
 
     try {
-        user = await UserDao.findById(id);
+        user = await UserDao.findBy(field);
     } catch (error) {
         console.error(error.message);
     }
 
     if (!user) {
-        throw Error(`User ${id} was not found`);
+        throw Error(`User ${field} was not found`);
     }
 
     return user;

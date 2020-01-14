@@ -1,9 +1,9 @@
 import userService from '../service/user';
 
-function list(request, response) {
+async function list(request, response) {
 
     try {
-        const list = userService.list();
+        const list = await userService.list();
         return response.status(200).send(list);
         
     } catch (error) {
@@ -11,12 +11,12 @@ function list(request, response) {
     }
 }
 
-function get({ params }, response) {
+async function get({ params }, response) {
 
-    const { username } = params;
+    const { id } = params;
 
     try {
-        const user = userService.get(username);
+        const user = await userService.get(id);
         return response.status(200).send(user);
 
     } catch (error) {
@@ -24,23 +24,23 @@ function get({ params }, response) {
     }
 }
 
-function create({ body: user }, response) {
+async function create({ body: user }, response) {
 
     try {
-        userService.create(user);
-        return response.status(201).end();
+        const id = await userService.create(user);
+        return response.status(201).send(`/api/user/${id}`);
         
     } catch (error) {
         return response.status(400).send(error.message);
     }
 }
 
-function edit({ params, body: user }, response) {
+async function edit({ params, body: user }, response) {
 
-    const { username } = params;
+    const { id } = params;
 
     try {
-        userService.edit(username, user);
+        await userService.edit(id, user);
         return response.status(204).end();
         
     } catch (error) {
@@ -48,12 +48,12 @@ function edit({ params, body: user }, response) {
     }
 }
 
-function deleteUser({ params }, response) {
+async function deleteUser({ params }, response) {
 
-    const { username } = params;
+    const { id } = params;
 
     try {
-        userService.deleteUser(username);
+        await userService.deleteUser(id);
         return response.status(204).end();
 
     } catch (error) {
