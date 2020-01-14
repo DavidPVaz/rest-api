@@ -1,8 +1,15 @@
-import userDao from '../dao/user';
+import { transaction } from 'objection';
+import { UserDao } from '../dao/user';
 
-function list() {
+async function list() {
 
-    const list = userDao.listUsers();
+    let list;
+
+    try {
+        list = await UserDao.list();
+    } catch (error) {
+        console.error(error.message);
+    }
 
     if (list.length === 0) {
         throw Error('No users to list.');
@@ -11,48 +18,90 @@ function list() {
     return list;
 }
 
-function get(username) {
+async function get(id) {
 
-    const user = userDao.getUser(username);
+    let user;
+
+    try {
+        user = await UserDao.findById(id);
+    } catch (error) {
+        console.error(error.message);
+    }
 
     if (!user) {
-        throw Error(`Username ${username} was not found`);
+        throw Error(`User ${id} was not found`);
     }
 
     return user;
 }
 
-function create({ username, email, password }) {
+function create(user) {
 
-    const user = userDao.getUser(username);
+    return transaction(UserDao.getModel(), async txUser => {
 
-    if (user) {
-        throw Error('That username already exists.');
-    }
+        const { username, email } = user;
 
-    userDao.createUser(username, email, password);
+        let existsWithUsername;
+        let existsWithEmail;
+
+        try {
+            existsWithUsername = await UserDao.findBy(username);
+            existsWithEmail = await UserDao.findBy(email);
+        } catch (error) {
+            console.error(error.message);
+        }
+
+        if (existsWithUsername) {
+            throw Error('That username already exists.');
+        }
+
+        if (existsWithEmail) {
+            throw Error('That email already exists.');
+        }
+
+        return UserDao.create(txUser, user);
+    });
+
 }
 
-function edit(username, updatedUser) {
+function edit(id, updatedUser) {
 
-    const user = userDao.getUser(username);
+    return transaction(UserDao.getModel(), async txUser => {
 
-    if (!user) {
-        throw Error(`Username ${username} was not found`);
-    }
+        let user;
 
-    userDao.editUser(username, updatedUser);
+        try {
+            user = await UserDao.findById(id);
+        } catch (error) {
+            console.error(error.message);
+        }
+
+        if (!user) {
+            throw Error(`User ${id} was not found`);
+        }
+
+        return UserDao.edit(txUser, id, updatedUser);
+    });
 }
 
-function deleteUser(username) {
+function deleteUser(id) {
 
-    const user = userDao.getUser(username);
+    return transaction(UserDao.getModel(), async txUser => {
 
-    if (!user) {
-        throw Error(`Username ${username} was not found`);
-    }
+        let user;
 
-    userDao.deleteUser(username);
+        try {
+            user = await UserDao.findById(id);
+        } catch (error) {
+            console.error(error.message);
+        }
+
+        if (!user) {
+            throw Error(`User ${id} was not found`);
+        }
+
+        return UserDao.delete(txUser, id);
+    });
 }
 
 export default {

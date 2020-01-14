@@ -43,6 +43,7 @@
         "eqeqeq": ["error", "always"],
         "newline-per-chained-call": "off",
         "prefer-arrow-callback":"off",
-        "object-curly-newline":"off"
+        "object-curly-newline":"off",
+        "class-methods-use-this":"off"
     }
 }
