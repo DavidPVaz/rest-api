@@ -27,8 +27,8 @@ async function get({ params }, response) {
 async function create({ body: user }, response) {
 
     try {
-        const id = await userService.create(user);
-        return response.status(201).send(`/api/user/${id}`);
+        const { id } = await userService.create(user);
+        return response.status(201).send(`Resource created at: /api/user/${id}`);
         
     } catch (error) {
         return response.status(400).send(error.message);

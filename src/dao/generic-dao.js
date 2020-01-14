@@ -20,7 +20,7 @@ class Dao {
     }
 
     create(txModel, model) {
-        return txModel.query().insert(model).returning('id');
+        return txModel.query().insert(model);
     }
 
     edit(txModel, id, model) {
