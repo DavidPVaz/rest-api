@@ -16,7 +16,7 @@ async function get({ params }, response) {
     const { id } = params;
 
     try {
-        const user = await userService.get(id);
+        const user = await userService.get('id', id);
         return response.status(200).send(user);
 
     } catch (error) {

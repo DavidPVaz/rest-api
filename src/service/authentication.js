@@ -7,7 +7,7 @@ async function authenticate(username, password) {
     let user;
 
     try {
-        user = await userService.get(username);
+        user = await userService.get('username', username);
 
         const isValid = await validatePassword(password, user.password);
         

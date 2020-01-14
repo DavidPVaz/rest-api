@@ -18,18 +18,18 @@ async function list() {
     return list;
 }
 
-async function get(field) {
+async function get(field, value) {
 
     let user;
 
     try {
-        user = await UserDao.findBy(field);
+        user = await UserDao.findBy(field, value);
     } catch (error) {
         console.error(error.message);
     }
 
     if (!user) {
-        throw Error(`User ${field} was not found`);
+        throw Error(`User ${value} was not found`);
     }
 
     return user;
@@ -45,8 +45,8 @@ function create(user) {
         let existsWithEmail;
 
         try {
-            existsWithUsername = await UserDao.findBy(username);
-            existsWithEmail = await UserDao.findBy(email);
+            existsWithUsername = await UserDao.findBy('username', username);
+            existsWithEmail = await UserDao.findBy('email', email);
         } catch (error) {
             console.error(error.message);
         }

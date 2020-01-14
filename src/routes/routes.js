@@ -15,7 +15,7 @@ const getUserList = {
 };
 
 const getUser = {
-    path: '/api/user/:username',
+    path: '/api/user/:id',
     middleware: [ isValidToken ],
     handler: userController.get
 };
@@ -25,12 +25,12 @@ const postUser = {
     handler: userController.create
 };
 const putUser = {
-    path: '/api/user/:username',
+    path: '/api/user/:id',
     middleware: [ isValidToken, requestValidation, hashPassword ],
     handler: userController.edit
 };
 const deleteUser = {
-    path: '/api/user/:username',
+    path: '/api/user/:id',
     middleware: [ isValidToken ],
     handler: userController.deleteUser
 };

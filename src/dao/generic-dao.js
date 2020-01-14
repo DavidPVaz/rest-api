@@ -15,8 +15,8 @@ class Dao {
         return this.model.query().findById(id);
     }
 
-    findBy(field) {
-        return this.model.query().findOne({ field });
+    findBy(field, value) {
+        return this.model.query().findOne(field, value);
     }
 
     create(txModel, model) {
