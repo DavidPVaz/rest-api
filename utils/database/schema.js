@@ -1,9 +1,6 @@
-const Knex = require('knex');
-const { development } = require('../../knexfile');
+import { knex } from '../../db/knex';
 
 (async function() {
-
-    const knex = Knex(development);
 
     try {
         await knex.migrate.latest();
