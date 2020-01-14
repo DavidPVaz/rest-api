@@ -10,11 +10,11 @@ class BaseModel extends Model {
     }
 
     $beforeInsert() {
-        this.createdAt = new Date();
+        this.created_at = new Date();
     }
 
     $beforeUpdate() {
-        this.updatedAt = new Date();
+        this.updated_at = new Date();
     }
 
     $formatJson(json) {

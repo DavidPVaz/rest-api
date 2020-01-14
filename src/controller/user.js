@@ -20,7 +20,7 @@ async function get({ params }, response) {
         return response.status(200).send(user);
 
     } catch (error) {
-        return response.status(404).send(error.message);
+        return response.status(400).send(error.message);
     }
 }
 
@@ -44,7 +44,7 @@ async function edit({ params, body: user }, response) {
         return response.status(204).end();
         
     } catch (error) {
-        return response.status(404).send(error.message);
+        return response.status(400).send(error.message);
     }
 }
 
@@ -57,7 +57,7 @@ async function deleteUser({ params }, response) {
         return response.status(204).end();
 
     } catch (error) {
-        return response.status(404).send(error.message);
+        return response.status(400).send(error.message);
     }
 }
 

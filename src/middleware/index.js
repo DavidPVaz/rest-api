@@ -29,7 +29,7 @@ async function hashPassword(request, response, next) {
     const { password } = request.body;
 
     if (!password) {
-        next();
+        return next();
     }
 
     try {
