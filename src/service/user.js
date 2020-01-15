@@ -1,6 +1,44 @@
 import { transaction } from 'objection';
 import { UserDao } from '../dao/user';
 
+async function checkForExistingValues(user) {
+
+    const { username, email } = user;
+
+    let existsWithUsername;
+    let existsWithEmail;
+
+    try {
+        existsWithUsername = await UserDao.findBy('username', username);
+        existsWithEmail = await UserDao.findBy('email', email);
+    } catch (error) {
+        console.error(error.message);
+    }
+
+    if (existsWithUsername) {
+        throw Error('That username already exists.');
+    }
+
+    if (existsWithEmail) {
+        throw Error('That email already exists.');
+    } 
+}
+
+async function checkIfUserExists(id) {
+
+    let user;
+
+    try {
+        user = await UserDao.findById(id);
+    } catch (error) {
+        console.error(error.message);
+    }
+
+    if (!user) {
+        throw Error(`User ${id} was not found`);
+    }
+}
+
 async function list() {
 
     let list;
@@ -64,41 +102,3 @@ export default {
     edit,
     deleteUser
 };
-
-async function checkForExistingValues(user) {
-
-    const { username, email } = user;
-
-    let existsWithUsername;
-    let existsWithEmail;
-
-    try {
-        existsWithUsername = await UserDao.findBy('username', username);
-        existsWithEmail = await UserDao.findBy('email', email);
-    } catch (error) {
-        console.error(error.message);
-    }
-
-    if (existsWithUsername) {
-        throw Error('That username already exists.');
-    }
-
-    if (existsWithEmail) {
-        throw Error('That email already exists.');
-    } 
-}
-
-async function checkIfUserExists(id) {
-
-    let user;
-
-    try {
-        user = await UserDao.findById(id);
-    } catch (error) {
-        console.error(error.message);
-    }
-
-    if (!user) {
-        throw Error(`User ${id} was not found`);
-    }
-}

@@ -8,7 +8,7 @@ class Dao {
     }
 
     list() {
-        return this.model.query();
+        return this.model.query().orderBy('id');
     }
 
     findById(id) {
