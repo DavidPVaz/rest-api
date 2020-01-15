@@ -58,4 +58,15 @@ function isValidToken({ headers }, response, next) {
     next();
 }
 
-export { loginParametersValidation, requestValidation, hashPassword, isValidToken };
+function hasAuthorization({ headers }, response, next) {
+
+    const decoded = compare(headers['authentication-jwt']);
+
+    if (!decoded.admin) {
+        return response.status(403).send('Not enough permissions.');
+    }
+
+    next();
+}
+
+export { loginParametersValidation, requestValidation, hashPassword, isValidToken, hasAuthorization };

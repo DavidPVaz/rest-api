@@ -44,6 +44,7 @@
         "newline-per-chained-call": "off",
         "prefer-arrow-callback":"off",
         "object-curly-newline":"off",
-        "class-methods-use-this":"off"
+        "class-methods-use-this":"off",
+        "max-len": ["error", { "code": 125 }]
     }
 }
