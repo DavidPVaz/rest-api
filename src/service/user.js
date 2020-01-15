@@ -1,5 +1,5 @@
 import { transaction } from 'objection';
-import { UserDao } from '../dao/user';
+import userDao from '../dao/user';
 
 async function checkForExistingValues(user) {
 
@@ -9,8 +9,8 @@ async function checkForExistingValues(user) {
     let existsWithEmail;
 
     try {
-        existsWithUsername = await UserDao.findBy('username', username);
-        existsWithEmail = await UserDao.findBy('email', email);
+        existsWithUsername = await userDao.findBy('username', username);
+        existsWithEmail = await userDao.findBy('email', email);
     } catch (error) {
         console.error(error.message);
     }
@@ -29,7 +29,7 @@ async function checkIfUserExists(id) {
     let user;
 
     try {
-        user = await UserDao.findById(id);
+        user = await userDao.findById(id);
     } catch (error) {
         console.error(error.message);
     }
@@ -44,7 +44,7 @@ async function list() {
     let list;
 
     try {
-        list = await UserDao.list();
+        list = await userDao.list();
     } catch (error) {
         console.error(error.message);
     }
@@ -61,7 +61,7 @@ async function get(field, value) {
     let user;
 
     try {
-        user = await UserDao.findBy(field, value);
+        user = await userDao.findBy(field, value);
     } catch (error) {
         console.error(error.message);
     }
@@ -74,24 +74,24 @@ async function get(field, value) {
 }
 
 function create(user) {
-    return transaction(UserDao.getModel(), async txUser => {
+    return transaction(userDao.getModel(), async txUser => {
         await checkForExistingValues(user);
-        return UserDao.create(txUser, user);
+        return userDao.create(txUser, user);
     });
 }
 
 function edit(id, updatedUser) {
-    return transaction(UserDao.getModel(), async txUser => {
+    return transaction(userDao.getModel(), async txUser => {
         await checkIfUserExists(id);
         await checkForExistingValues(updatedUser);
-        return UserDao.edit(txUser, id, updatedUser);
+        return userDao.edit(txUser, id, updatedUser);
     });
 }
 
 function deleteUser(id) {
-    return transaction(UserDao.getModel(), async txUser => {
+    return transaction(userDao.getModel(), async txUser => {
         await checkIfUserExists(id);
-        return UserDao.delete(txUser, id);
+        return userDao.delete(txUser, id);
     });
 }
 

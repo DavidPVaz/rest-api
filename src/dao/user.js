@@ -1,6 +1,10 @@
 import { Dao } from './generic-dao';
 import { User } from '../model/user';
 
-const UserDao = new Dao(User);
+class UserDao extends Dao {
+    constructor() {
+        super(User);
+    }
+}
 
-export { UserDao };
+export default new UserDao();
