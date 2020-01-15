@@ -9,7 +9,8 @@ function requiredFieldsValidation({ body }) {
             const error = Error();
             error.details = [ { message: 'Password must have a minimum of 8 characters and contain at least: one lower case letter, one upper case letter, one number, one special character(.,!@#$%^&*)' } ];
             return error;
-        })
+        }),
+        admin: Joi.boolean()
     });
     
     return schema.validate(body);
@@ -24,7 +25,8 @@ function fieldsValidation({ body }) {
             const error = Error();
             error.details = [ { message: 'Password must have a minimum of 8 characters and contain at least: one lower case letter, one upper case letter, one number, one special character(.,!@#$%^&*)' } ];
             return error;
-        })
+        }),
+        admin: Joi.boolean()
     });
     
     return schema.validate(body);
