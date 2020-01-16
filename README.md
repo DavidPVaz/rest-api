@@ -21,7 +21,7 @@
 - Dao pattern for data entity
 - ORM with transactional capabilities
 
-### Express Router
+### Routes
 
 - Map routes to middleware and handler
 
@@ -30,7 +30,7 @@
 - HTTPS
 - Stateless authentication for API endpoints (JWT)
 - Simple authorization
-- Request validation (Joi)
+- Request validation (joi)
 - Password hashing (bcrypt)
 - Database ORM (Objection) with migrations (Knex)
 - Usage of native Promises
