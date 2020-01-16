@@ -33,8 +33,7 @@
 - Request validation (joi)
 - Password hashing (bcrypt)
 - Database ORM (Objection) with migrations (Knex)
-- Usage of native Promises
-- ES6
+- ES6, ES8
 
 #### Reset the database to it's original state
 
