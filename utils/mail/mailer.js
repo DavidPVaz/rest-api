@@ -1,5 +1,7 @@
 import NodeMailer from 'nodemailer';
 import dotenv from 'dotenv';
+import templates from './templates';
+import generator from './generator';
 
 dotenv.config();
 
@@ -15,6 +17,9 @@ const transporter = NodeMailer.createTransport({
 async function sendRegistrationMailTo(user) {
 
     const { username, email } = user;
+    const emailContent = templates.getRegistrationBody(username);
+    const html = generator.generate(emailContent);
+    const text = generator.generatePlaintext(emailContent);
 
     try {
         await transporter.sendMail({
@@ -22,8 +27,8 @@ async function sendRegistrationMailTo(user) {
             to: `${username} <${email}>`,
             subject: 'Successful registration',
             time: new Date(),
-            text: 'Plaintext version of the message',
-            html: '<p>HTML version of the message</p>'
+            html,
+            text
         });
     
     } catch (error) {
