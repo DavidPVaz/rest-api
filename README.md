@@ -1,9 +1,9 @@
 ## Project Description
 
-- Simple RESTful API built with Express. Data persisted in a PostgreSQL database
+- RESTful API built with Express. Data persisted in a PostgreSQL database
 - To replicate:
     1. generate your own tls credentials and store them in `config/tls`
-    2. set your own environment variables in a `.env` file in root dir. 3 variables are used in this project: PORT, NODE_ENV, DB_URI
+    2. set your own environment variables in a `.env` file in root dir. 7 variables are used in this project: PORT, NODE_ENV, DB_URI, SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS
 
 ## Layered architecture for proper separation of concerns
 
@@ -32,8 +32,9 @@
 - Simple authorization
 - Request validation (joi)
 - Password hashing (bcrypt)
-- Database ORM (Objection) with migrations (Knex)
-- ES6, ES8
+- Database ORM (Objection) with migrations (Knex),
+- Nodemailer
+- ES5, ES6, ES8
 
 #### Reset the database to it's original state
 
