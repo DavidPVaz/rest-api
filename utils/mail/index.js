@@ -1,27 +1,41 @@
-import NodeMailer from 'nodemailer';
+import { EventEmitter } from 'events';
+import nodeMailer from './mailer';
 
-const transporter = NodeMailer.createTransport({
-    host: process.env.SMTP_HOST,
-    port: process.env.SMTP_PORT,
-    auth: {
-        user: process.env.SMTP_USER,
-        pass: process.env.SMTP_PASS
-    }
-});
+const events = {
+    userCreated: 'user created'
+};
 
-async function sendRegistrationMailTo() {
-    try {
-        await transporter.sendMail({
-            from: 'API <someone@mail.com>',
-            to: `Fake <${process.env.SMTP_USER}>`,
-            subject: 'App mail test',
-            text: 'Plaintext version of the message',
-            html: '<p>HTML version of the message</p>'
+export default (function() {
+
+    const privateMethods = new WeakMap();
+
+    const Mailer = function(nodeMailer) {
+        EventEmitter.call(this);
+
+        const sendRegistrationMailTo = user => {
+            setImmediate(async () => {
+                console.log('Event catched');
+                await nodeMailer.sendRegistrationMailTo(user);
+            });
+        };
+
+        privateMethods.set(this, {
+            sendRegistrationMailTo
         });
-    
-    } catch (error) {
-        console.error(error);
-    }
-}
+    };
 
-export { sendRegistrationMailTo };
+    Mailer.prototype = Object.create(EventEmitter.prototype);
+    Mailer.prototype.constructor = Mailer;
+
+    Mailer.prototype.listen = function() {
+        this.on(events.userCreated, privateMethods.get(this).sendRegistrationMailTo);
+    };
+
+    Mailer.prototype.reportUserCreated = function(user) {
+        this.emit(events.userCreated, user);
+        console.log('Emitted event');
+    };
+
+    return new Mailer(nodeMailer);
+
+})();

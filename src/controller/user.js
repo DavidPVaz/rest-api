@@ -1,4 +1,5 @@
 import userService from '../service/user';
+import mailer from '../../utils/mail';
 
 async function list(request, response) {
 
@@ -27,7 +28,8 @@ async function get({ params }, response) {
 async function create({ body: user }, response) {
 
     try {
-        const { id } = await userService.create(user);
+        const { id, username, email } = await userService.create(user);
+        mailer.reportUserCreated({ username, email: process.env.SMTP_USER });
         return response.status(201).send(`Resource created at: /api/user/${id}`);
         
     } catch (error) {
