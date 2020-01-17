@@ -1,7 +1,14 @@
 import userService from './user';
 import { validatePassword } from '../../utils/hash';
 import { sign } from '../../utils/authentication';
-
+/**
+ * Authenticate an existing user
+ *
+ * @param {string} username - username to validate
+ * @param {string} password - password to validate
+ * @returns {string} An authentication token (JWT)
+ * @throws Will throw an error if any of the passed arguments are not valid
+ */
 async function authenticate(username, password) {
 
     let user;
@@ -21,7 +28,9 @@ async function authenticate(username, password) {
 
     return sign(user.id, user.username, user.admin);
 }
-
+/** 
+* @module AuthenticationService 
+*/
 export default { 
     authenticate 
 };
