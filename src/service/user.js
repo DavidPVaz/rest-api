@@ -1,11 +1,9 @@
 import { transaction } from 'objection';
 import userDao from '../dao/user';
 /**
- * Check if already exist any user with a given username or password
+ * Check if already exist any user with provided username or password
  * 
  * @param {Object} user - Object received in the request body
- * @param {string} username - User expected property
- * @param {string} email - User expected property
  * @throws Will throw an error if any match is found in database
  */
 async function checkForExistingValues(user) {
@@ -34,7 +32,7 @@ async function checkForExistingValues(user) {
  * Check if a user with a given id really exists
  *
  * @param {number} id - Number received in request parameters
- * @throws Will throw an error if an user with that id is not found in database
+ * @throws Will throw an error if an user with provided id is not found in database
  */
 async function checkIfUserExists(id) {
 
@@ -53,7 +51,7 @@ async function checkIfUserExists(id) {
 /**
  * Fetch all users from the database
  *
- * @returns {Object[]} an array with all the users
+ * @returns {Object[]} An array with all the users
  * @throws Will throw an error if there are no users in the database
  */
 async function list() {
@@ -78,7 +76,7 @@ async function list() {
  * @param {string} field - The column name in database
  * @param {(number|string)} value - Value associated with that column. It can be a number if fetching by id, 
  * or a string, if fetching by username or email 
- * @returns {Object} a user object
+ * @returns {Object} A user object
  * @throws Will throw an error if there is no user to match the given value
  */
 async function get(field, value) {
@@ -97,14 +95,28 @@ async function get(field, value) {
 
     return user;
 }
-
+/**
+ * Create a new user in the database
+ *
+ * @param {Object} user - Object received in the request body
+ * @returns {Promise<Object>} A Promise
+ * @throws Will throw an error if the provided username or email properties of the user object already exists in the database 
+ */
 function create(user) {
     return transaction(userDao.getModel(), async txUser => {
         await checkForExistingValues(user);
         return userDao.create(txUser, user);
     });
 }
-
+/**
+ * Edit an existing user in the database
+ *
+ * @param {number} id - Number received in request parameters 
+ * @param {Object} updatedUser - Object received in the request body
+ * @returns {Promise<Object>} A Promise
+ * @throws Will throw an error if an user with the provided id is not found in database, or the provided username or email 
+ * properties of the user object already exist in the database
+ */
 function edit(id, updatedUser) {
     return transaction(userDao.getModel(), async txUser => {
         await checkIfUserExists(id);
@@ -112,7 +124,13 @@ function edit(id, updatedUser) {
         return userDao.edit(txUser, id, updatedUser);
     });
 }
-
+/**
+ * Deletes an existing user from the database
+ *
+ * @param {number} id - Number received in request parameters
+ * @returns {Promise<Object>} A promise
+ * @throws Will throw an error if an user with the provided id is not found in database
+ */
 function deleteUser(id) {
     return transaction(userDao.getModel(), async txUser => {
         await checkIfUserExists(id);
@@ -120,6 +138,9 @@ function deleteUser(id) {
     });
 }
 
+/**  
+* @module UserService 
+*/
 export default {
     list,
     get,
