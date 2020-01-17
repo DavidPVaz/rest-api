@@ -1,6 +1,13 @@
 import { transaction } from 'objection';
 import userDao from '../dao/user';
-
+/**
+ * Check if already exist any user with a given username or password
+ * 
+ * @param {Object} user - Object received in the request body
+ * @param {string} username - User expected property
+ * @param {string} email - User expected property
+ * @throws Will throw an error if any match is found in database
+ */
 async function checkForExistingValues(user) {
 
     const { username, email } = user;
@@ -23,7 +30,12 @@ async function checkForExistingValues(user) {
         throw Error('That email already exists.');
     } 
 }
-
+/**
+ * Check if a user with a given id really exists
+ *
+ * @param {number} id - Number received in request parameters
+ * @throws Will throw an error if an user with that id is not found in database
+ */
 async function checkIfUserExists(id) {
 
     let user;
@@ -38,7 +50,12 @@ async function checkIfUserExists(id) {
         throw Error(`User ${id} was not found`);
     }
 }
-
+/**
+ * Fetch all users from the database
+ *
+ * @returns {Object[]} an array with all the users
+ * @throws Will throw an error if there are no users in the database
+ */
 async function list() {
 
     let list;
@@ -55,7 +72,15 @@ async function list() {
 
     return list;
 }
-
+/**
+ * Fetch a single user from the database
+ *
+ * @param {string} field - The column name in database
+ * @param {(number|string)} value - Value associated with that column. It can be a number if fetching by id, 
+ * or a string, if fetching by username or email 
+ * @returns {Object} a user object
+ * @throws Will throw an error if there is no user to match the given value
+ */
 async function get(field, value) {
 
     let user;
