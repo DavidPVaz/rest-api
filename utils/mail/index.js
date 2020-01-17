@@ -14,7 +14,6 @@ export default (function() {
 
         const sendRegistrationMailTo = user => {
             setImmediate(async () => {
-                console.log('Event catched');
                 await nodeMailer.sendRegistrationMailTo(user);
             });
         };
@@ -33,7 +32,6 @@ export default (function() {
 
     Mailer.prototype.reportUserCreated = function(user) {
         this.emit(events.userCreated, user);
-        console.log('Emitted event');
     };
 
     return new Mailer(nodeMailer);

@@ -28,8 +28,8 @@ async function get({ params }, response) {
 async function create({ body: user }, response) {
 
     try {
-        const { id, username, email } = await userService.create(user);
-        mailer.reportUserCreated({ username, email: process.env.SMTP_USER });
+        const { id, username } = await userService.create(user);
+        mailer.reportUserCreated({ username, email: process.env.SMTP_USER }); // fake email for testing purposes 
         return response.status(201).send(`Resource created at: /api/user/${id}`);
         
     } catch (error) {

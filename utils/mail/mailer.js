@@ -1,4 +1,7 @@
 import NodeMailer from 'nodemailer';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const transporter = NodeMailer.createTransport({
     host: process.env.SMTP_HOST,
@@ -12,13 +15,13 @@ const transporter = NodeMailer.createTransport({
 async function sendRegistrationMailTo(user) {
 
     const { username, email } = user;
-    console.log(username, email);
 
     try {
         await transporter.sendMail({
-            from: 'API <someone@mail.com>',
+            from: 'RESTful API <no-reply@rest.com>',
             to: `${username} <${email}>`,
-            subject: 'App mail test',
+            subject: 'Successful registration',
+            time: new Date(),
             text: 'Plaintext version of the message',
             html: '<p>HTML version of the message</p>'
         });
