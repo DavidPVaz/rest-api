@@ -1,10 +1,22 @@
-import { Dao } from './generic-dao';
+import { AbstractDao } from './abstract-dao';
 import { User } from '../model/user';
-
-class UserDao extends Dao {
+/**
+ * A more especific type of DAO, intended to work with User Model
+ *
+ * @class UserDao
+ * @extends {AbstractDao}
+ */
+class UserDao extends AbstractDao {
+    /**
+     * Creates an instance of UserDao
+     * 
+     * Call to super with the User Model
+     */
     constructor() {
         super(User);
     }
 }
-
+/** 
+* @module UserDao 
+*/
 export default new UserDao();

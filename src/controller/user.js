@@ -3,9 +3,9 @@ import mailer from '../../utils/mail';
 /**
  * API handler to fetch the list of users
  *
- * @param {Object} request - request object
- * @param {Object} response - response object
- * @returns {*} a HTTPS response to client with a 200 status code and the list of users in JSON format, or a 404 
+ * @param {Object} request - Request object
+ * @param {Object} response - Response object
+ * @returns {*} A HTTPS response to client with a 200 status code and the list of users in JSON format, or a 404 
  * with the error message
  */
 async function list(request, response) {
@@ -21,10 +21,10 @@ async function list(request, response) {
 /**
  * API handler to fetch a single user
  * 
- * @param {Object} request - request object
- * @param {Object} request.params - params property of the request
- * @param {Object} response - response object
- * @returns {*} a HTTPS response to client with a 200 status code and a user in JSON format, or a 404 
+ * @param {Object} request - Request object
+ * @param {Object} request.params - Params property of the request
+ * @param {Object} response - Response object
+ * @returns {*} A HTTPS response to client with a 200 status code and a user in JSON format, or a 404 
  * with the error message
  */
 async function get({ params }, response) {
@@ -42,10 +42,10 @@ async function get({ params }, response) {
 /**
  * API handler to create an user
  * 
- * @param {Object} request - request object
- * @param {Object} request.body - body property of the request, renamed to user
- * @param {Object} response - response object
- * @returns {*} a HTTPS response to client with a 201 status code and the path to the new resource in string format, 
+ * @param {Object} request - Request object
+ * @param {Object} request.body - Body property of the request, renamed to user
+ * @param {Object} response - Response object
+ * @returns {*} A HTTPS response to client with a 201 status code and the path to the new resource in string format, 
  * or a 400 with the error message
  */
 async function create({ body: user }, response) {
@@ -62,11 +62,11 @@ async function create({ body: user }, response) {
 /**
  * API handler to update an user
  * 
- * @param {Object} request - request object
- * @param {Object} request.params - params property of the request
- * @param {Object} request.body - body property of the request, renamed to user
- * @param {Object} response - response object
- * @returns {*} a HTTPS response to client with a 204 status code, or a 400 / 404 with the error message, 
+ * @param {Object} request - Request object
+ * @param {Object} request.params - Params property of the request
+ * @param {Object} request.body - Body property of the request, renamed to user
+ * @param {Object} response - Response object
+ * @returns {*} A HTTPS response to client with a 204 status code, or a 400 / 404 with the error message, 
  * depending on the failure cause
  */
 async function edit({ params, body: user }, response) {
@@ -86,10 +86,10 @@ async function edit({ params, body: user }, response) {
 /**
  * API handler to delete an user
  * 
- * @param {Object} request - request object
- * @param {Object} request.params - params property of the request
- * @param {Object} response - response object
- * @returns {*} a HTTPS response to client with a 204 status code, or a 404 with the error message
+ * @param {Object} request - Request object
+ * @param {Object} request.params - Params property of the request
+ * @param {Object} response - Response object
+ * @returns {*} A HTTPS response to client with a 204 status code, or a 404 with the error message
  */
 async function deleteUser({ params }, response) {
 
