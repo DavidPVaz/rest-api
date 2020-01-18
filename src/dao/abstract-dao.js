@@ -92,6 +92,6 @@ class AbstractDao {
     }
 }
 /** 
-* @module AbstractDao 
-*/
+ * @module AbstractDao 
+ */
 export { AbstractDao };

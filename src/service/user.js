@@ -138,8 +138,8 @@ function deleteUser(id) {
     });
 }
 /**  
-* @module UserService 
-*/
+ * @module UserService 
+ */
 export default {
     list,
     get,

@@ -1,3 +1,11 @@
+/** 
+ * @fileoverview This module maps API endpoints to middleware and handler, and define configuration objects 
+ * to be used by a Router with the following structure: 
+ * 
+ * @property {string} path - The path to the endpoint
+ * @property {Function[]} middleware - The middleware function(s) to be used by Express at this endpoint
+ * @property {Function} handler - Function to handle the request
+ */
 import userController from '../controller/user';
 import authenticationController from '../controller/authentication';
 import { 
@@ -36,7 +44,9 @@ const deleteUser = {
     middleware: [ isValidToken, hasAuthorization ],
     handler: userController.deleteUser
 };
-
+/** 
+ * @module Routes
+ */
 export default {
     login, 
     getUserList, 

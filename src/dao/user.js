@@ -17,6 +17,6 @@ class UserDao extends AbstractDao {
     }
 }
 /** 
-* @module UserDao 
-*/
+ * @module UserDao 
+ */
 export default new UserDao();

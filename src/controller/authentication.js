@@ -21,8 +21,8 @@ async function login({ body: user }, response) {
     }
 }
 /**  
-* @module AuthenticationController 
-*/
+ * @module AuthenticationController 
+ */
 export default {
     login
 };

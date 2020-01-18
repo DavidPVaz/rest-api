@@ -111,6 +111,6 @@ function hasAuthorization({ headers }, response, next) {
     next();
 }
 /** 
-* @module Middleware 
-*/
+ * @module Middleware 
+ */
 export { loginCredentialsValidation, requestValidation, hashPassword, isValidToken, hasAuthorization };

@@ -29,8 +29,8 @@ async function authenticate(username, password) {
     return sign(user.id, user.username, user.admin);
 }
 /** 
-* @module AuthenticationService 
-*/
+ * @module AuthenticationService 
+ */
 export default { 
     authenticate 
 };

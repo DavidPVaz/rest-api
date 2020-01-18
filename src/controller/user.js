@@ -104,8 +104,8 @@ async function deleteUser({ params }, response) {
     }
 }
 /** 
-* @module UserController 
-*/
+ * @module UserController 
+ */
 export default {
     list,
     get,

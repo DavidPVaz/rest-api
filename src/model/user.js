@@ -1,8 +1,8 @@
 /** 
-* @fileoverview A BaseModel subclass represents a database table
-* 
-* @see {@link https://vincit.github.io/objection.js/}
-*/
+ * @fileoverview A BaseModel subclass represents a database table
+ * 
+ * @see {@link https://vincit.github.io/objection.js/}
+ */
 import { BaseModel } from './base-model';
 
 class User extends BaseModel {
@@ -32,6 +32,6 @@ class User extends BaseModel {
     }
 }
 /** 
-* @module User 
-*/
+ * @module User 
+ */
 export { User };

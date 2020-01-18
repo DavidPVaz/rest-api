@@ -19,6 +19,6 @@ app.use(router);
 
 const server = https.createServer(tlsCredentials, app);
 /** 
-* @module Server 
-*/
+ * @module Server 
+ */
 export { server };
