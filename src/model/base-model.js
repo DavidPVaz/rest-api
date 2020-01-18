@@ -1,6 +1,15 @@
+/** 
+* @fileoverview The BaseModel is a super class for all Models, where shared configuration is defined
+*
+* @see {@link https://vincit.github.io/objection.js/}
+*/
 import { Model } from 'objection';
 import { knex } from '../../db/knex';
-
+/** 
+* Give the knex instance to objection
+*
+* Doing this installs the knex instance globally for all models
+*/
 Model.knex(knex);
 
 class BaseModel extends Model {
@@ -29,5 +38,7 @@ class BaseModel extends Model {
         return result;
     }
 }
-
+/** 
+* @module BaseModel 
+*/
 export { BaseModel };

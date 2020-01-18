@@ -7,7 +7,7 @@
  */
 class AbstractDao {
     /**
-     * Constructor to be called in sub-classes
+     * Constructor to be called in subclasses
      * 
      * @param {Object} model - The Model Entity to be used
      */
@@ -18,7 +18,7 @@ class AbstractDao {
     /**
      * Method to get this DAO Model Entity
      * 
-     * To be used in Service, to bind this model to a trasaction
+     * To be used in Service, to bind this model to a trasaction {@link https://vincit.github.io/objection.js/}
      * 
      * @returns {Object} this model
      */
