@@ -18,5 +18,7 @@ app.use(cors({
 app.use(router);
 
 const server = https.createServer(tlsCredentials, app);
-
+/** 
+* @module Server 
+*/
 export { server };

@@ -1,6 +1,13 @@
 import userService from '../service/user';
 import mailer from '../../utils/mail';
-
+/**
+ * API handler to fetch the list of users
+ *
+ * @param {Object} request - request object
+ * @param {Object} response - response object
+ * @returns {*} a HTTPS response to client with a 200 status code and the list of users in JSON format, or a 404 
+ * with the error message
+ */
 async function list(request, response) {
 
     try {
@@ -8,10 +15,18 @@ async function list(request, response) {
         return response.status(200).send(list);
         
     } catch (error) {
-        return response.status(204).send(error.message);
+        return response.status(404).send(error.message);
     }
 }
-
+/**
+ * API handler to fetch a single user
+ * 
+ * @param {Object} request - request object
+ * @param {Object} request.params - params property of the request
+ * @param {Object} response - response object
+ * @returns {*} a HTTPS response to client with a 200 status code and a user in JSON format, or a 404 
+ * with the error message
+ */
 async function get({ params }, response) {
 
     const { id } = params;
@@ -21,10 +36,18 @@ async function get({ params }, response) {
         return response.status(200).send(user);
 
     } catch (error) {
-        return response.status(400).send(error.message);
+        return response.status(404).send(error.message);
     }
 }
-
+/**
+ * API handler to create an user
+ * 
+ * @param {Object} request - request object
+ * @param {Object} request.body - body property of the request, renamed to user
+ * @param {Object} response - response object
+ * @returns {*} a HTTPS response to client with a 201 status code and the path to the new resource in string format, 
+ * or a 400 with the error message
+ */
 async function create({ body: user }, response) {
 
     try {
@@ -36,7 +59,16 @@ async function create({ body: user }, response) {
         return response.status(400).send(error.message);
     }
 }
-
+/**
+ * API handler to update an user
+ * 
+ * @param {Object} request - request object
+ * @param {Object} request.params - params property of the request
+ * @param {Object} request.body - body property of the request, renamed to user
+ * @param {Object} response - response object
+ * @returns {*} a HTTPS response to client with a 204 status code, or a 400 / 404 with the error message, 
+ * depending on the failure cause
+ */
 async function edit({ params, body: user }, response) {
 
     const { id } = params;
@@ -46,10 +78,19 @@ async function edit({ params, body: user }, response) {
         return response.status(204).end();
         
     } catch (error) {
-        return response.status(400).send(error.message);
+        return error.message.startsWith('User') 
+            ? response.status(404).send(error.message) 
+            : response.status(400).send(error.message);
     }
 }
-
+/**
+ * API handler to delete an user
+ * 
+ * @param {Object} request - request object
+ * @param {Object} request.params - params property of the request
+ * @param {Object} response - response object
+ * @returns {*} a HTTPS response to client with a 204 status code, or a 404 with the error message
+ */
 async function deleteUser({ params }, response) {
 
     const { id } = params;
@@ -59,10 +100,12 @@ async function deleteUser({ params }, response) {
         return response.status(204).end();
 
     } catch (error) {
-        return response.status(400).send(error.message);
+        return response.status(404).send(error.message);
     }
 }
-
+/** 
+* @module UserController 
+*/
 export default {
     list,
     get,

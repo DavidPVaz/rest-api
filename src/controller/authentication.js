@@ -1,4 +1,13 @@
 import authenticationService from '../service/authentication';
+/**
+ * API handler for user login
+ *
+ * @param {Object} request - request object
+ * @param {Object} request.body - body property of the request, renamed to user
+ * @param {Object} response - response object
+ * @returns {*} a HTTPS response to client with a 200 status code with a valid token in headers, or a 401 
+ * with the error message
+ */
 
 async function login({ body: user }, response) {
 
@@ -12,7 +21,9 @@ async function login({ body: user }, response) {
         return response.status(401).send(error.message);
     }
 }
-
+/**  
+* @module AuthenticationController 
+*/
 export default {
     login
 };
