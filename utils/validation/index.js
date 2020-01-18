@@ -39,7 +39,7 @@ function fieldsValidation({ body }) {
     return schema.validate(body);
 }
 
-function loginFieldsValidation({ body }) {
+function loginValidation({ body }) {
 
     const schema = Joi.object({
         username: Joi.string().required(),
@@ -49,4 +49,4 @@ function loginFieldsValidation({ body }) {
     return schema.validate(body);
 }
 
-export { requiredFieldsValidation, fieldsValidation, loginFieldsValidation };
+export { requiredFieldsValidation, fieldsValidation, loginValidation };

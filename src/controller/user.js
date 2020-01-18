@@ -5,7 +5,7 @@ import mailer from '../../utils/mail';
  *
  * @param {Object} request - Request object
  * @param {Object} response - Response object
- * @returns {*} A HTTPS response to client with a 200 status code and the list of users in JSON format, or a 404 
+ * @returns {*} A HTTPS response to the client with a 200 status code and the list of users in JSON format, or a 404 
  * with the error message
  */
 async function list(request, response) {
@@ -24,7 +24,7 @@ async function list(request, response) {
  * @param {Object} request - Request object
  * @param {Object} request.params - Params property of the request
  * @param {Object} response - Response object
- * @returns {*} A HTTPS response to client with a 200 status code and a user in JSON format, or a 404 
+ * @returns {*} A HTTPS response to the client with a 200 status code and a user in JSON format, or a 404 
  * with the error message
  */
 async function get({ params }, response) {
@@ -45,7 +45,7 @@ async function get({ params }, response) {
  * @param {Object} request - Request object
  * @param {Object} request.body - Body property of the request, renamed to user
  * @param {Object} response - Response object
- * @returns {*} A HTTPS response to client with a 201 status code and the path to the new resource in string format, 
+ * @returns {*} A HTTPS response to the client with a 201 status code and the path to the new resource in string format, 
  * or a 400 with the error message
  */
 async function create({ body: user }, response) {
@@ -66,7 +66,7 @@ async function create({ body: user }, response) {
  * @param {Object} request.params - Params property of the request
  * @param {Object} request.body - Body property of the request, renamed to user
  * @param {Object} response - Response object
- * @returns {*} A HTTPS response to client with a 204 status code, or a 400 / 404 with the error message, 
+ * @returns {*} A HTTPS response to the client with a 204 status code, or a 400 / 404 with the error message, 
  * depending on the failure cause
  */
 async function edit({ params, body: user }, response) {
@@ -89,7 +89,7 @@ async function edit({ params, body: user }, response) {
  * @param {Object} request - Request object
  * @param {Object} request.params - Params property of the request
  * @param {Object} response - Response object
- * @returns {*} A HTTPS response to client with a 204 status code, or a 404 with the error message
+ * @returns {*} A HTTPS response to the client with a 204 status code, or a 404 with the error message
  */
 async function deleteUser({ params }, response) {
 

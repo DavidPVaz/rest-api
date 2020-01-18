@@ -1,10 +1,18 @@
-import { loginFieldsValidation, requiredFieldsValidation, fieldsValidation } from '../../utils/validation';
+import { loginValidation, requiredFieldsValidation, fieldsValidation } from '../../utils/validation';
 import { generateHash } from '../../utils/hash';
 import { compare } from '../../utils/authentication';
+/**
+ * Middleware to validate if the client request contains the necessary login credentials
+ *
+ * @param {Object} request - Request object
+ * @param {Object} response - Response object
+ * @param {Function} next - A reference to the next middleware function
+ * @returns {*} A HTTPS response to the client with a 400 status code and the error message 
+ * if the request is not properly formatted
+ */
+function loginCredentialsValidation(request, response, next) {
 
-function loginParametersValidation(request, response, next) {
-
-    const { error } = loginFieldsValidation(request);
+    const { error } = loginValidation(request);
 
     if (error) {
         return response.status(400).send(error.details[0].message);
@@ -12,7 +20,15 @@ function loginParametersValidation(request, response, next) {
 
     next();
 }
-
+/**
+ * Middleware to validate if the client request contains the required fields and comply with the API rules
+ *
+ * @param {Object} request - Request object
+ * @param {Object} response - Response object
+ * @param {Function} next - A reference to the next middleware function
+ * @returns {*} A HTTPS response to the client with a 400 status code and the error message 
+ * if the request is not properly formatted or does not comply with the API rules
+ */
 function requestValidation(request, response, next) {
 
     const { error } = request.method === 'POST' ? requiredFieldsValidation(request) : fieldsValidation(request);
@@ -23,7 +39,15 @@ function requestValidation(request, response, next) {
 
     next();
 }
-
+/**
+ * Middleware to hash the client request's plain text password
+ *
+ * @param {Object} request - Request object
+ * @param {Object} response - Response object
+ * @param {Function} next - A reference to the next middleware function
+ * @return {*} A HTTPS response to the client with a 500 status code and the error message 
+ * if something went wrong while hashing
+ */
 async function hashPassword(request, response, next) {
 
     const { password } = request.body;
@@ -40,7 +64,16 @@ async function hashPassword(request, response, next) {
 
     next();
 }
-
+/**
+ * Middleware to validate if the client is authenticated
+ *
+ * @param {Object} request - Request object
+ * @param {Object} request.headers - Headers property of the request
+ * @param {Object} response - Response object
+ * @param {Function} next - A reference to the next middleware function
+ * @returns {*} A HTTPS response to the client with a 401 status code and the error message 
+ * if the request does not contain the required header with a valid token
+ */
 function isValidToken({ headers }, response, next) {
 
     const token = headers['authentication-jwt'];
@@ -57,7 +90,16 @@ function isValidToken({ headers }, response, next) {
 
     next();
 }
-
+/**
+ * Middleware to validate if the client has authorization
+ *
+ * @param {Object} request - Request object
+ * @param {Object} request.headers - Headers property of the request
+ * @param {Object} response - Response object
+ * @param {Function} next - A reference to the next middleware function
+ * @returns {*} A HTTPS response to the client with a 403 status code and the error message 
+ * if the client does not have enough permissions
+ */
 function hasAuthorization({ headers }, response, next) {
 
     const decoded = compare(headers['authentication-jwt']);
@@ -68,5 +110,7 @@ function hasAuthorization({ headers }, response, next) {
 
     next();
 }
-
-export { loginParametersValidation, requestValidation, hashPassword, isValidToken, hasAuthorization };
+/** 
+* @module Middleware 
+*/
+export { loginCredentialsValidation, requestValidation, hashPassword, isValidToken, hasAuthorization };

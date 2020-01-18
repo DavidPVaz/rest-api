@@ -1,10 +1,12 @@
 import userController from '../controller/user';
 import authenticationController from '../controller/authentication';
-import { loginParametersValidation, isValidToken, requestValidation, hashPassword, hasAuthorization } from '../middleware';
+import { 
+    loginCredentialsValidation, isValidToken, requestValidation, hashPassword, hasAuthorization 
+} from '../middleware';
 
 const login = {
     path: '/api/login',
-    middleware: [ loginParametersValidation ],
+    middleware: [ loginCredentialsValidation ],
     handler: authenticationController.login
 };
 
