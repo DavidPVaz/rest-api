@@ -1,3 +1,8 @@
+/** 
+ * @file Knex seeds
+ * 
+ * {@link http://knexjs.org/}
+ */
 exports.seed = async function(knex) {
     await knex('users').del();
     return knex('users').insert([

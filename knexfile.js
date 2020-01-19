@@ -1,3 +1,9 @@
+/** 
+ * @file Where knex configuration object for different node environments is defined.
+ * 
+ * {@link http://knexjs.org/}
+ */
+
 const dotenv = require('dotenv');
 
 dotenv.config();
