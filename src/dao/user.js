@@ -4,6 +4,7 @@ import { User } from '../model/user';
  * A more especific type of DAO, intended to work with User Model
  *
  * @class UserDao
+ * 
  * @extends {AbstractDao}
  */
 class UserDao extends AbstractDao {

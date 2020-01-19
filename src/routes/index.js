@@ -1,3 +1,8 @@
+/** 
+ * @file This module assigns each configuration object to a Router HTTPS request method.
+ * 
+ * @see module:Routes
+ */
 import express from 'express';
 import routes from './routes';
 
@@ -10,5 +15,7 @@ router.get(routes.getUser.path, routes.getUser.middleware, routes.getUser.handle
 router.post(routes.postUser.path, routes.postUser.middleware, routes.postUser.handler);
 router.put(routes.putUser.path, routes.putUser.middleware, routes.putUser.handler);
 router.delete(routes.deleteUser.path, routes.deleteUser.middleware, routes.deleteUser.handler);
-
+/** 
+ * @module Router
+ */
 export { router };

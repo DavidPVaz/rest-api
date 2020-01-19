@@ -1,10 +1,11 @@
 /** 
- * @fileoverview This module maps API endpoints to middleware and handler, and define configuration objects 
- * to be used by a Router with the following structure: 
+ * @file This module defines configuration objects to map API endpoints to middleware and handler. 
  * 
- * @property {string} path - The path to the endpoint
- * @property {Function[]} middleware - The middleware function(s) to be used by Express at this endpoint
- * @property {Function} handler - Function to handle the request
+ * The objects have the following structure:
+ * 
+ * @property {string}     path       - The path to the endpoint.
+ * @property {Function[]} middleware - The middleware function(s) to be used by Express at this endpoint.
+ * @property {Function}   handler    - Function to handle the request.
  */
 import userController from '../controller/user';
 import authenticationController from '../controller/authentication';

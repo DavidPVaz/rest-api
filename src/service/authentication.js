@@ -2,12 +2,14 @@ import userService from './user';
 import { validatePassword } from '../../utils/hash';
 import { sign } from '../../utils/authentication';
 /**
- * Authenticate an existing user
+ * Authenticates an existing user.
  *
- * @param {string} username - Username to validate
- * @param {string} password - Password to validate
- * @returns {string} An authentication token (JWT)
- * @throws Will throw an error if any of the passed arguments are not valid
+ * @param {string} username - Username to validate.
+ * @param {string} password - Password to validate.
+ * 
+ * @return {string} An authentication token (JWT).
+ * 
+ * @throw Will throw an Error if any of the passed arguments is not valid.
  */
 async function authenticate(username, password) {
 

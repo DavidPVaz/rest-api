@@ -2,13 +2,14 @@ import { loginValidation, requiredFieldsValidation, fieldsValidation } from '../
 import { generateHash } from '../../utils/hash';
 import { compare } from '../../utils/authentication';
 /**
- * Middleware to validate if the client request contains the necessary login credentials
+ * Validates if the client request contains the necessary login credentials.
  *
- * @param {Object} request - Request object
- * @param {Object} response - Response object
- * @param {Function} next - A reference to the next middleware function
- * @returns {*} A HTTPS response to the client with a 400 status code and the error message 
- * if the request is not properly formatted
+ * @param {Object}   request  - Request object.
+ * @param {Object}   response - Response object.
+ * @param {Function} next     - A reference to the next middleware function.
+ * 
+ * @return {*} A HTTPS response to the client with a 400 status code and the error message 
+ * if the request is not properly formatted.
  */
 function loginCredentialsValidation(request, response, next) {
 
@@ -21,13 +22,14 @@ function loginCredentialsValidation(request, response, next) {
     next();
 }
 /**
- * Middleware to validate if the client request contains the required fields and comply with the API rules
+ * Validates if the client request contains the necessary fields and comply with the API rules.
  *
- * @param {Object} request - Request object
- * @param {Object} response - Response object
- * @param {Function} next - A reference to the next middleware function
- * @returns {*} A HTTPS response to the client with a 400 status code and the error message 
- * if the request is not properly formatted or does not comply with the API rules
+ * @param {Object}   request  - Request object.
+ * @param {Object}   response - Response object.
+ * @param {Function} next     - A reference to the next middleware function.
+ * 
+ * @return {*} A HTTPS response to the client with a 400 status code and the error message 
+ * if the request is not properly formatted or does not comply with the API rules.
  */
 function requestValidation(request, response, next) {
 
@@ -40,13 +42,14 @@ function requestValidation(request, response, next) {
     next();
 }
 /**
- * Middleware to hash the client request's plain text password
+ * Hashes the plain text password sent by the client
  *
- * @param {Object} request - Request object
- * @param {Object} response - Response object
- * @param {Function} next - A reference to the next middleware function
+ * @param {Object}   request  - Request object.
+ * @param {Object}   response - Response object.
+ * @param {Function} next     - A reference to the next middleware function.
+ * 
  * @return {*} A HTTPS response to the client with a 500 status code and the error message 
- * if something went wrong while hashing
+ * if something went wrong while hashing.
  */
 async function hashPassword(request, response, next) {
 
@@ -65,14 +68,15 @@ async function hashPassword(request, response, next) {
     next();
 }
 /**
- * Middleware to validate if the client is authenticated
+ * Verifies if the client is authenticated.
  *
- * @param {Object} request - Request object
- * @param {Object} request.headers - Headers property of the request
- * @param {Object} response - Response object
- * @param {Function} next - A reference to the next middleware function
- * @returns {*} A HTTPS response to the client with a 401 status code and the error message 
- * if the request does not contain the required header with a valid token
+ * @param {Object}   request         - Request object.
+ * @param {Object}   request.headers - Headers property of the request.
+ * @param {Object}   response        - Response object.
+ * @param {Function} next            - A reference to the next middleware function.
+ * 
+ * @return {*} A HTTPS response to the client with a 401 status code and the error message 
+ * if the request does not contain the required header with a valid token.
  */
 function isValidToken({ headers }, response, next) {
 
@@ -91,14 +95,15 @@ function isValidToken({ headers }, response, next) {
     next();
 }
 /**
- * Middleware to validate if the client has authorization
+ * Verifies if the client has authorization.
  *
- * @param {Object} request - Request object
- * @param {Object} request.headers - Headers property of the request
- * @param {Object} response - Response object
- * @param {Function} next - A reference to the next middleware function
- * @returns {*} A HTTPS response to the client with a 403 status code and the error message 
- * if the client does not have enough permissions
+ * @param {Object}   request         - Request object.
+ * @param {Object}   request.headers - Headers property of the request.
+ * @param {Object}   response        - Response object.
+ * @param {Function} next            - A reference to the next middleware function.
+ * 
+ * @return {*} A HTTPS response to the client with a 403 status code and the error message 
+ * if the client does not have enough permissions.
  */
 function hasAuthorization({ headers }, response, next) {
 

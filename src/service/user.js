@@ -1,10 +1,11 @@
 import { transaction } from 'objection';
 import userDao from '../dao/user';
 /**
- * Check if already exist any user with provided username or password
+ * Checks if the provided username or email already exist.
  * 
- * @param {Object} user - User data received in the request body
- * @throws Will throw an error if any match is found in the database
+ * @param {Object} user - User data to verify.
+ * 
+ * @throw Will throw an Error if any match is found in the database.
  */
 async function checkForExistingValues(user) {
 
@@ -29,10 +30,11 @@ async function checkForExistingValues(user) {
     } 
 }
 /**
- * Check if a user with a given id really exist
+ * Checks if the provided id refers to an existing user.
  *
- * @param {number} id - Id number received in request parameters
- * @throws Will throw an error if an user with provided id is not found in the database
+ * @param {number} id - Id number to verify.
+ * 
+ * @throw Will throw an Error if an user with the provided id is not found in the database.
  */
 async function checkIfUserExists(id) {
 
@@ -49,10 +51,11 @@ async function checkIfUserExists(id) {
     }
 }
 /**
- * Fetch all users from the database
+ * Fetch all users from the database.
  *
- * @returns {Object[]} An array with all the users
- * @throws Will throw an error if there are no users in the database
+ * @return {Object[]} An array with all the users.
+ * 
+ * @throw Will throw an Error if there are no users in the database.
  */
 async function list() {
 
@@ -71,13 +74,14 @@ async function list() {
     return list;
 }
 /**
- * Fetch a single user from the database
+ * Fetch a single user from the database.
  *
- * @param {string} field - The column name in the users table
- * @param {(string|number|boolean)} value - Value associated with that column. It can be a number if fetching by id, 
- * a string, if fetching by username or email, or a boolean if fetching by admin
- * @returns {Object} The queried user
- * @throws Will throw an error if there is no user in the database to match the given value
+ * @param {string}                  field - The column name in the users table.
+ * @param {(string|number|boolean)} value - Value associated with that column.
+ * 
+ * @return {Object} The queried user.
+ * 
+ * @throw Will throw an Error if an user with the provided value is not found in the database.
  */
 async function get(field, value) {
 
@@ -96,11 +100,13 @@ async function get(field, value) {
     return user;
 }
 /**
- * Create a new user in the database
+ * Creates a new user in the database.
  *
- * @param {Object} user - User data received in the request body
- * @returns {Promise<Object>} A Promise to be either resolved with the recently inserted user or rejected with an Error
- * @throws Will throw an error if the provided username or email properties of the user object already exists in the database 
+ * @param {Object} user - User data to persist.
+ * 
+ * @return {Promise<Object>} A Promise to be either resolved with the inserted user or rejected with an Error.
+ * 
+ * @throw Will throw an Error if the provided username or email values of the user object already exists in the database. 
  */
 function create(user) {
     return transaction(userDao.getModel(), async txUser => {
@@ -109,13 +115,15 @@ function create(user) {
     });
 }
 /**
- * Update an existing user in the database
+ * Updates an existing user in the database.
  *
- * @param {number} id - Id number received in request parameters 
- * @param {Object} updatedUser - Updated user data received in the request body
- * @returns {Promise<number>} A Promise to be either resolved with the number of updated users or rejected with an Error
- * @throws Will throw an error if an user with the provided id is not found in the database, or the provided username or email 
- * properties of the user object already exist in the database
+ * @param {number} id          - Id number of the user.
+ * @param {Object} updatedUser - Updated user data.
+ * 
+ * @return {Promise<number>} A Promise to be either resolved with the number of updated users or rejected with an Error.
+ * 
+ * @throw Will throw an Error if an user with the provided id is not found in the database, or if the provided username 
+ * or email values already exist.
  */
 function edit(id, updatedUser) {
     return transaction(userDao.getModel(), async txUser => {
@@ -125,11 +133,13 @@ function edit(id, updatedUser) {
     });
 }
 /**
- * Delete an existing user from the database
+ * Deletes an existing user from the database.
  *
- * @param {number} id - Id number received in request parameters
- * @returns {Promise<number>} A Promise to be either resolved with the number of deleted users or rejected with an Error
- * @throws Will throw an error if an user with the provided id is not found in the database
+ * @param {number} id - Id number of the user.
+ * 
+ * @return {Promise<number>} A Promise to be either resolved with the number of deleted users or rejected with an Error.
+ * 
+ * @throw Will throw an Error if an user with the provided id is not found in the database.
  */
 function deleteUser(id) {
     return transaction(userDao.getModel(), async txUser => {

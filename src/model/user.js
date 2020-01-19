@@ -1,7 +1,7 @@
 /** 
- * @fileoverview A BaseModel subclass represents a database table
+ * @file A BaseModel subclass represents a database table.
  * 
- * @see {@link https://vincit.github.io/objection.js/}
+ * @link https://vincit.github.io/objection.js/
  */
 import { BaseModel } from './base-model';
 
