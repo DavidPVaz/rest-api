@@ -1,5 +1,9 @@
 import { knex } from '../../db/knex';
-
+/**
+ * Fixes PostgreSQL next id attribution in tables.
+ *
+ * @param {Object} knex - The knex instance.
+ */
 async function setNextInDbSequence(knex) {
 
     const tables = await knex('pg_tables').select('tablename').where('schemaname', 'public');
@@ -12,7 +16,9 @@ async function setNextInDbSequence(knex) {
             ))
     );
 }
-
+/** 
+ * IIFE to execute migrations and seeds. 
+ */
 (async function() {
 
     try {
