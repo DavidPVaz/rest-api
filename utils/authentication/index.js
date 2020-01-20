@@ -1,7 +1,7 @@
 import jsonWebToken from 'jsonwebtoken';
 import { secret } from '../../config';
 /**
- * Generates a signed Json Web Token.
+ * Generates a `signed` Json Web Token.
  *
  * @param {number}  id       - Id number to use in the signature.
  * @param {string}  username - Username to use in the signature.
@@ -13,7 +13,7 @@ function sign(id, username, admin) {
     return jsonWebToken.sign({ id, username, admin }, secret, { expiresIn: '30m' });
 }
 /**
- * Verifies if the Json Web Token signature is valid.
+ * Verifies if the Json Web Token signature is `valid`.
  *
  * @param {string} token - The Json Web Token to verify.
  * 

@@ -1,6 +1,6 @@
 import { knex } from '../../db/knex';
 /**
- * Fixes PostgreSQL next id attribution in tables.
+ * Fix PostgreSQL next `id` attribution in tables.
  *
  * @param {Object} knex - The knex instance.
  */
@@ -17,7 +17,7 @@ async function setNextInDbSequence(knex) {
     );
 }
 /** 
- * IIFE to execute migrations and seeds. 
+ * IIFE to execute knex `migrations` and `seeds`. 
  */
 (async function() {
 

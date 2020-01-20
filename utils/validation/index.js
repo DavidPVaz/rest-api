@@ -1,5 +1,14 @@
 import Joi from '@hapi/joi';
-
+/**
+ * Validates the `request.body` against a schema with required fields and its constraints.
+ *
+ * @param {Object} request - The request object.
+ * @param {Object} request.body - Body property of the request.
+ * 
+ * @return {Object} An object with an error and value properties.
+ * If the input was valid, then the error will be `undefined`. 
+ * If the input was invalid, a ValidationError object is assigned to error. 
+ */
 function requiredFieldsValidation({ body }) {
 
     const schema = Joi.object({
@@ -19,7 +28,16 @@ function requiredFieldsValidation({ body }) {
     
     return schema.validate(body);
 }
-
+/**
+ * Validates the `request.body` against a schema with optional fields and its constraints.
+ *
+ * @param {Object} request - The request object.
+ * @param {Object} request.body - Body property of the request.
+ * 
+ * @return {Object} An object with an error and value properties.
+ * If the input was valid, then the error will be `undefined`. 
+ * If the input was invalid, a ValidationError object is assigned to error. 
+ */
 function fieldsValidation({ body }) {
 
     const schema = Joi.object({
@@ -38,7 +56,16 @@ function fieldsValidation({ body }) {
     
     return schema.validate(body);
 }
-
+/** 
+ * Validates the `request.body` against a schema with required fields.
+ *
+ * @param {Object} request - The request object.
+ * @param {Object} request.body - Body property of the request.
+ * 
+ * @return {Object} An object with an error and value properties.
+ * If the input was valid, then the error will be `undefined`. 
+ * If the input was invalid, a ValidationError object is assigned to error.
+ */
 function loginValidation({ body }) {
 
     const schema = Joi.object({

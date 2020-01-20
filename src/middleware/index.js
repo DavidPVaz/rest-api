@@ -2,14 +2,14 @@ import { loginValidation, requiredFieldsValidation, fieldsValidation } from '../
 import { generateHash } from '../../utils/hash';
 import { compare } from '../../utils/authentication';
 /**
- * Validates if the client request contains the necessary login credentials.
+ * Validates if the client `request` contains the necessary login credentials.
  *
  * @param {Object}   request  - Request object.
  * @param {Object}   response - Response object.
  * @param {Function} next     - A reference to the next middleware function.
  * 
- * @return {*} A HTTPS response to the client with a 400 status code and the error message 
- * if the request is not properly formatted.
+ * @return {*} A HTTPS `response` to the client with a `400` status code and the error message 
+ * if the `request` is not properly formatted.
  */
 function loginCredentialsValidation(request, response, next) {
 
@@ -22,14 +22,14 @@ function loginCredentialsValidation(request, response, next) {
     next();
 }
 /**
- * Validates if the client request contains the necessary fields and comply with the API rules.
+ * Validates if the client `request` contains the necessary fields and comply with the API rules.
  *
  * @param {Object}   request  - Request object.
  * @param {Object}   response - Response object.
  * @param {Function} next     - A reference to the next middleware function.
  * 
- * @return {*} A HTTPS response to the client with a 400 status code and the error message 
- * if the request is not properly formatted or does not comply with the API rules.
+ * @return {*} A HTTPS `response` to the client with a `400` status code and the error message 
+ * if the `request` is not properly formatted or does not comply with the API rules.
  */
 function requestValidation(request, response, next) {
 
@@ -48,7 +48,7 @@ function requestValidation(request, response, next) {
  * @param {Object}   response - Response object.
  * @param {Function} next     - A reference to the next middleware function.
  * 
- * @return {*} A HTTPS response to the client with a 500 status code and the error message 
+ * @return {*} A HTTPS `response` to the client with a `500` status code and the error message 
  * if something went wrong while hashing.
  */
 async function hashPassword(request, response, next) {
@@ -75,8 +75,8 @@ async function hashPassword(request, response, next) {
  * @param {Object}   response        - Response object.
  * @param {Function} next            - A reference to the next middleware function.
  * 
- * @return {*} A HTTPS response to the client with a 401 status code and the error message 
- * if the request does not contain the required header with a valid token.
+ * @return {*} A HTTPS `response` to the client with a `401` status code and the error message 
+ * if the `request` does not contain the required header with a valid token.
  */
 function isValidToken({ headers }, response, next) {
 
@@ -102,7 +102,7 @@ function isValidToken({ headers }, response, next) {
  * @param {Object}   response        - Response object.
  * @param {Function} next            - A reference to the next middleware function.
  * 
- * @return {*} A HTTPS response to the client with a 403 status code and the error message 
+ * @return {*} A HTTPS `response` to the client with a `403` status code and the error message 
  * if the client does not have enough permissions.
  */
 function hasAuthorization({ headers }, response, next) {

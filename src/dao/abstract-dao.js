@@ -1,5 +1,5 @@
 /**
- * A generic abstract DAO that encapsulate a provided Model Entity with generic methods to query the database.
+ * A generic `abstract DAO` that encapsulate a provided Model Entity with `generic methods` to query the database.
  * 
  * Open for extension, closed for modification.
  * 
@@ -9,27 +9,27 @@ class AbstractDao {
     /**
      * Constructor to be called in subclasses.
      * 
-     * @param {Object} model - The Model Entity to be used.
+     * @param {Object} model - The Model to be used.
      */
     constructor(model) {
         this.model = model;
     }
 
     /**
-     * Gets this DAO Model Entity.
+     * Gets this DAO Model.
      * 
-     * To be used in Service for trasaction binding {@link https://vincit.github.io/objection.js/}.
+     * To be used in `Service` for `trasaction` binding. {@link https://vincit.github.io/objection.js/}
      * 
-     * @return {Object} This Model.
+     * @return {Object} `this.model`.
      */
     getModel() {
         return this.model;
     }
 
     /**
-     * Performs a query that fetch all rows of this Model database table.
+     * Performs a query that `fetch` all rows of this Model database table.
      *
-     * @return {Promise<Object[]>} A Promise to be either resolved with an array of all table data ordered by id 
+     * @return {Promise<Object[]>} A Promise to be either resolved with an array of all table data ordered by `id` 
      * or rejected with an Error.
      */
     list() {
@@ -37,7 +37,7 @@ class AbstractDao {
     }
 
     /**
-     * Performs a query that fetch a especific row in this Model database table.
+     * Performs a query that `fetch` a especific row in this Model database table.
      *
      * @param {number} id - Id number to identify the table entry.
      * 
@@ -48,7 +48,7 @@ class AbstractDao {
     }
 
     /**
-     * Performs a query that fetch a especific row in this Model database table.
+     * Performs a query that `fetch` a especific row in this Model database table.
      *
      * @param {string}                  field - Identify the column name of the table.
      * @param {(string|number|boolean)} value - Value associated with that column.
@@ -60,7 +60,7 @@ class AbstractDao {
     }
 
     /**
-     * Performs a query that create a new row in this Model database table. 
+     * Performs a query that `create` a new row in this Model database table. 
      *
      * @param {Object} txModel - A copy of the Model that was bound to a transaction.
      * @param {Object} model   - The object with the data to be inserted in the database.
@@ -72,7 +72,7 @@ class AbstractDao {
     }
 
     /**
-     * Performs a query that update an existing row in this Model database table. 
+     * Performs a query that `update` an existing row in this Model database table. 
      *
      * @param {Object} txModel - A copy of the Model that was bound to a transaction.
      * @param {number} id      - Id number to identify the table entry. 
@@ -85,7 +85,7 @@ class AbstractDao {
     }
 
     /**
-     * Performs a query that delete an existing row in this Model database table. 
+     * Performs a query that `delete` an existing row in this Model database table. 
      *
      * @param {Object} txModel - A copy of the Model that was bound to a transaction.
      * @param {number} id      - Id number to identify the table entry.

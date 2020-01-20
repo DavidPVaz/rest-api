@@ -1,12 +1,12 @@
 import userService from '../service/user';
 import mailer from '../../utils/mail';
 /**
- * API handler to fetch the list of use.
+ * API handler to `fetch` the list of users.
  *
  * @param {Object} request  - Request object.
  * @param {Object} response - Response object.
  * 
- * @return {*} A HTTPS response to the client with a 200 status code and the list of users in JSON format, or a 404 
+ * @return {*} A HTTPS `response` to the client with a `200` status code and the list of users, or a `404` 
  * with the error message.
  */
 async function list(request, response) {
@@ -20,13 +20,13 @@ async function list(request, response) {
     }
 }
 /**
- * API handler to fetch a single user.
+ * API handler to `fetch` a single user.
  * 
  * @param {Object} request        - Request object.
  * @param {Object} request.params - Params property of the request.
  * @param {Object} response       - Response object.
  * 
- * @return {*} A HTTPS response to the client with a 200 status code and a user in JSON format, or a 404 
+ * @return {*} A HTTPS `response` to the client with a `200` status code and the user, or a `404` 
  * with the error message.
  */
 async function get({ params }, response) {
@@ -42,20 +42,20 @@ async function get({ params }, response) {
     }
 }
 /**
- * API handler to create an user.
+ * API handler to `create` an user.
  * 
  * @param {Object} request      - Request object.
  * @param {Object} request.body - Body property of the request, renamed to user.
  * @param {Object} response     - Response object.
  * 
- * @return {*} A HTTPS response to the client with a 201 status code and the path to the new resource in string format, 
- * or a 400 with the error message.
+ * @return {*} A HTTPS `response` to the client with a `201` status code and the `path` to the new resource, 
+ * or a `400` with the error message.
  */
 async function create({ body: user }, response) {
 
     try {
         const { id, username } = await userService.create(user);
-        mailer.reportUserCreated({ username, email: process.env.SMTP_USER }); // fake email for testing purposes 
+        mailer.reportUserCreated({ username, email: process.env.SMTP_FAKE_MAIL }); // fake email for testing purposes. 
         return response.status(201).send(`Resource created at: /api/user/${id}`);
         
     } catch (error) {
@@ -63,14 +63,14 @@ async function create({ body: user }, response) {
     }
 }
 /**
- * API handler to update an user.
+ * API handler to `update` an user.
  * 
  * @param {Object} request        - Request object.
  * @param {Object} request.params - Params property of the request.
  * @param {Object} request.body   - Body property of the request, renamed to user.
  * @param {Object} response       - Response object.
  * 
- * @return {*} A HTTPS response to the client with a 204 status code, or a 400 / 404 with the error message, 
+ * @return {*} A HTTPS `response` to the client with a `204` status code, or a `400` / `404` with the error message, 
  * depending on the failure cause.
  */
 async function edit({ params, body: user }, response) {
@@ -88,13 +88,13 @@ async function edit({ params, body: user }, response) {
     }
 }
 /**
- * API handler to delete an user.
+ * API handler to `delete` an user.
  * 
  * @param {Object} request        - Request object.
  * @param {Object} request.params - Params property of the request.
  * @param {Object} response       - Response object.
  * 
- * @return {*} A HTTPS response to the client with a 204 status code, or a 404 with the error message
+ * @return {*} A HTTPS `response` to the client with a `204` status code, or a `404` with the error message.
  */
 async function deleteUser({ params }, response) {
 
