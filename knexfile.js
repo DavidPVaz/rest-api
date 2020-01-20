@@ -18,10 +18,10 @@ const KnexConfig = {
             max: 10
         },
         migrations: {
-            directory: './db/migrations'
+            directory: './db/migrations/dev'
         },
         seeds: {
-            directory: './db/seeds'
+            directory: './db/seeds/dev'
         },
         acquireConnectionTimeout: 1000
     }
