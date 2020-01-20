@@ -1,5 +1,12 @@
+/** 
+ * @file Creates a Mail Generator instance.
+ * 
+ * {@link https://github.com/eladnava/mailgen}
+ */
 import Mailgen from 'mailgen';
-
+/** 
+ * @module MailGenerator
+ */
 export default new Mailgen({
     theme: 'cerberus',
     product: {

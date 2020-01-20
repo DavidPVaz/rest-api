@@ -1,3 +1,16 @@
+/** 
+ * @file Where different types of templates should be configured for each context.
+ * 
+ * These templates are used by Mail Generator to build HTML and Plain Text.
+ */
+
+/**
+ * Get a custom registration template for `username`. 
+ *
+ * @param {string} username - The username to insert in the template.
+ * 
+ * @return {Object} A registration template object.
+ */
 function getRegistrationBody(username) {
 
     return {
@@ -16,7 +29,9 @@ function getRegistrationBody(username) {
         }
     };
 }
-
+/** 
+ * @module EmailTemplates
+ */
 export default {
     getRegistrationBody
 };
