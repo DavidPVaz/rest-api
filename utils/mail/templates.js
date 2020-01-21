@@ -1,4 +1,6 @@
 /** 
+ * @module EmailTemplates
+ * 
  * @file Where different types of templates should be configured for each context.
  * 
  * These templates are used by Mail Generator to build HTML and Plain Text.
@@ -29,9 +31,7 @@ function getRegistrationBody(username) {
         }
     };
 }
-/** 
- * @module EmailTemplates
- */
+
 export default {
     getRegistrationBody
 };

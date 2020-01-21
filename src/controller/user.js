@@ -1,3 +1,6 @@
+/** 
+ * @module UserController 
+ */
 import userService from '../service/user';
 import mailer from '../../utils/mail';
 /**
@@ -108,9 +111,7 @@ async function deleteUser({ params }, response) {
         return response.status(404).send(error.message);
     }
 }
-/** 
- * @module UserController 
- */
+
 export default {
     list,
     get,

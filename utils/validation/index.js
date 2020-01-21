@@ -1,3 +1,6 @@
+/** 
+ * @module Validation-Util
+ */
 import Joi from '@hapi/joi';
 /**
  * Validates the `request.body` against a schema with required fields and its constraints.

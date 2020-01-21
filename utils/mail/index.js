@@ -1,3 +1,6 @@
+/** 
+ * @module Mailer
+ */
 import { EventEmitter } from 'events';
 import nodeMailer from './mailer';
 /**
@@ -9,9 +12,7 @@ import nodeMailer from './mailer';
 const events = {
     USER_CREATED: 'user created'
 };
-/** 
- * @module Mailer
- */
+
 export default (function() {
 
     const privateMethods = new WeakMap();

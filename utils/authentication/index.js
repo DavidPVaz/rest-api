@@ -1,3 +1,6 @@
+/** 
+ * @module Authentication-Util 
+ */
 import jsonWebToken from 'jsonwebtoken';
 import { secret } from '../../config';
 /**
@@ -22,7 +25,5 @@ function sign(id, username, admin) {
 function compare(token) {
     return jsonWebToken.verify(token, secret);
 }
-/** 
- * @module Authentication-Util 
- */
+
 export { sign, compare };

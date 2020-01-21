@@ -1,3 +1,6 @@
+/**  
+ * @module AuthenticationController 
+ */
 import authenticationService from '../service/authentication';
 /**
  * API handler for user `login`.
@@ -21,9 +24,7 @@ async function login({ body: user }, response) {
         return response.status(401).send(error.message);
     }
 }
-/**  
- * @module AuthenticationController 
- */
+
 export default {
     login
 };

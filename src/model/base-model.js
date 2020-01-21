@@ -38,7 +38,5 @@ class BaseModel extends Model {
         return result;
     }
 }
-/** 
- * @module BaseModel 
- */
+
 export { BaseModel };

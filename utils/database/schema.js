@@ -1,3 +1,6 @@
+/** 
+ * @module DB-Util
+ */
 import { knex } from '../../db/knex';
 /**
  * Fix PostgreSQL next `id` attribution in tables.

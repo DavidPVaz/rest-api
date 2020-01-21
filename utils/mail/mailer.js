@@ -1,3 +1,6 @@
+/** 
+ * @module NodeMailer
+ */
 import NodeMailer from 'nodemailer';
 import dotenv from 'dotenv';
 import templates from './templates';
@@ -42,9 +45,7 @@ async function sendRegistrationMailTo(user) {
         console.error(error);
     }
 }
-/** 
- * @module NodeMailer
- */
+
 export default { 
     sendRegistrationMailTo 
 };

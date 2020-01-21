@@ -31,7 +31,5 @@ class User extends BaseModel {
         return result;
     }
 }
-/** 
- * @module User 
- */
+
 export { User };

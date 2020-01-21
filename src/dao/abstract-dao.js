@@ -95,7 +95,5 @@ class AbstractDao {
         return txModel.query().deleteById(id);
     }
 }
-/** 
- * @module AbstractDao 
- */
+
 export { AbstractDao };

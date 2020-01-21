@@ -1,4 +1,6 @@
 /** 
+ * @module Routes
+ *
  * @file This module defines configuration objects to map API endpoints to middleware and handler. 
  * 
  * The objects have the following structure:
@@ -45,9 +47,7 @@ const deleteUser = {
     middleware: [ isValidToken, hasAuthorization ],
     handler: userController.deleteUser
 };
-/** 
- * @module Routes
- */
+
 export default {
     login, 
     getUserList, 

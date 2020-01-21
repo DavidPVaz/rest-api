@@ -1,3 +1,6 @@
+/** 
+ * @module Middleware 
+ */
 import { loginValidation, requiredFieldsValidation, fieldsValidation } from '../../utils/validation';
 import { generateHash } from '../../utils/hash';
 import { compare } from '../../utils/authentication';
@@ -115,7 +118,5 @@ function hasAuthorization({ headers }, response, next) {
 
     next();
 }
-/** 
- * @module Middleware 
- */
+
 export { loginCredentialsValidation, requestValidation, hashPassword, isValidToken, hasAuthorization };

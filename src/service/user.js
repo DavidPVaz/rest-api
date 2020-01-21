@@ -1,3 +1,6 @@
+/**  
+ * @module UserService 
+ */
 import { transaction } from 'objection';
 import userDao from '../dao/user';
 /**
@@ -147,9 +150,7 @@ function deleteUser(id) {
         return userDao.delete(txUser, id);
     });
 }
-/**  
- * @module UserService 
- */
+
 export default {
     list,
     get,

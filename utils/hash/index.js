@@ -1,3 +1,6 @@
+/** 
+ * @module Hash-Util
+ */
 import bcrypt from 'bcrypt';
 /**
  * Generates an hashed password.
@@ -21,7 +24,5 @@ async function generateHash(password) {
 async function validatePassword(providedPassword, userPassword) {
     return bcrypt.compare(providedPassword, userPassword);
 }
-/** 
- * @module Hash-Util
- */
+
 export { generateHash, validatePassword };

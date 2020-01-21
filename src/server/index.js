@@ -1,3 +1,6 @@
+/** 
+ * @module Server 
+ */
 import https from 'https';
 import express from 'express';
 import cors from 'cors';
@@ -18,7 +21,5 @@ app.use(cors({
 app.use(router);
 
 const server = https.createServer(tlsCredentials, app);
-/** 
- * @module Server 
- */
+
 export { server };
