@@ -1,9 +1,23 @@
 /** 
  * @module AuthenticationService 
  */
+import jsonWebToken from 'jsonwebtoken';
 import userService from './user';
 import { validatePassword } from '../../utils/hash';
-import { sign } from '../../utils/authentication';
+import Config from '../../config';
+/**
+ * Generates a `signed` Json Web Token.
+ *
+ * @param {number}  id       - Id number to use in the signature.
+ * @param {string}  username - Username to use in the signature.
+ * @param {boolean} admin    - Admin property to use in the signature.
+ * 
+ * @return {string} A Json Web Token.
+ */
+function sign(id, username, admin) {
+    const key = Buffer.from(Config.secret, 'base64');
+    return jsonWebToken.sign({ id, username, admin }, key, { expiresIn: '1h' });
+}
 /**
  * Authenticates an existing user.
  *
@@ -16,10 +30,8 @@ import { sign } from '../../utils/authentication';
  */
 async function authenticate(username, password) {
 
-    let user;
-
     try {
-        user = await userService.get('username', username);
+        const user = await userService.get('username', username);
 
         const isValid = await validatePassword(password, user.password);
         
