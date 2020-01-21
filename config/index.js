@@ -16,11 +16,27 @@ const tls = {
 /** 
  * `Secret` used to generate Json Web Token.
  */
-const secret = Buffer.from(crypto.randomBytes(256).toString('base64'), 'base64');
+const secret = crypto.randomBytes(256).toString('base64');
+/** 
+ * Server `CORS`
+ */
+const cors = {
+    origin: [ '*' ],
+    maxAge: 3600
+};
+/** 
+ * Server `HOST`
+ */
+const host = process.env.API_HOST || 'localhost';
+/** 
+ * Server `PORT`
+ */
+const port = process.env.API_PORT || 8888;
 
 export default {
-    key: tls.key,
-    cert: tls.cert
+    tls,
+    secret,
+    host,
+    port,
+    cors
 };
-
-export { secret };

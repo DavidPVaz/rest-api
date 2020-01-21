@@ -1,25 +1,31 @@
 /** 
  * @module Server 
  */
-import https from 'https';
-import express from 'express';
-import cors from 'cors';
-import { router } from '../routes';
-import tlsCredentials from '../../config';
+import Glue from '@hapi/glue';
+import Config from '../../config';
+import Plugins from '../plugins';
 
-const app = express();
+const manifest = {
+    server: {
+        host: Config.host,
+        port: Config.port,
+        tls: Config.tls,
+        routes: {
+            cors: Config.cors
+        }
+    },
+    register: { plugins: Plugins }
+};
 
-app.disable('x-powered-by');
-app.disable('etag');
+async function buildServer() {
+    
+    try {
+        return await Glue.compose(manifest);
+    } catch (error) {
+        console.error(error);       
+    }
+}
 
-app.use(express.json());
-app.use(cors({
-    origin: '*',
-    methods: [ 'GET', 'POST', 'PUT', 'DELETE' ]
-}));
-
-app.use(router);
-
-const server = https.createServer(tlsCredentials, app);
+const server = buildServer();
 
 export { server };

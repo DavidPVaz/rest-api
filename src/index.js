@@ -3,9 +3,18 @@ import mailer from '../utils/mail';
 import { server } from './server';
 
 dotenv.config();
-const port = process.env.PORT || 8888;
 
 mailer.listen();
-server.listen(port, () => {
-    console.log(`Server has started on port ${port}...`);
-});
+
+(async function() {
+
+    try {
+        await server.start();
+        console.log(`server listening at port ${server.settings.port}`);
+        
+    } catch (error) {
+        console.error(error);
+        process.exit(1);
+    }
+    
+})();

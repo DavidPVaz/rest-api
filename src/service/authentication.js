@@ -27,11 +27,12 @@ async function authenticate(username, password) {
             throw Error();
         }
         
+        return sign(user.id, user.username, user.admin);
+        
     } catch (error) {
         throw Error('Invalid credentials.');
     }
 
-    return sign(user.id, user.username, user.admin);
 }
 
 export default { 
