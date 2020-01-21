@@ -4,7 +4,7 @@ import nodeMailer from './mailer';
  * Enum for event types.
  * 
  * @readonly
- * @enum {sring}
+ * @enum {string}
  */
 const events = {
     USER_CREATED: 'user created'

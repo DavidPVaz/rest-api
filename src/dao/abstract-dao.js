@@ -29,8 +29,7 @@ class AbstractDao {
     /**
      * Performs a query that `fetch` all rows of this Model database table.
      *
-     * @return {Promise<Object[]>} A Promise to be either resolved with an array of all table data ordered by `id` 
-     * or rejected with an Error.
+     * @return {Objection.QueryBuilder} The associated query.
      */
     list() {
         return this.model.query().orderBy('id');
@@ -41,7 +40,7 @@ class AbstractDao {
      *
      * @param {number} id - Id number to identify the table entry.
      * 
-     * @return {Promise<Object>} A Promise to be either resolved with the queried data or rejected with an Error.
+     * @return {Objection.QueryBuilder} The associated query.
      */
     findById(id) {
         return this.model.query().findById(id);
@@ -53,7 +52,7 @@ class AbstractDao {
      * @param {string}                  field - Identify the column name of the table.
      * @param {(string|number|boolean)} value - Value associated with that column.
      * 
-     * @return {Promise<Object>} A Promise to be either resolved with the queried data or rejected with an Error.
+     * @return {Objection.QueryBuilder} The associated query.
      */
     findBy(field, value) {
         return this.model.query().findOne(field, value);
@@ -65,7 +64,7 @@ class AbstractDao {
      * @param {Object} txModel - A copy of the Model that was bound to a transaction.
      * @param {Object} model   - The object with the data to be inserted in the database.
      * 
-     * @return {Promise<Object>} A Promise to be either resolved with the recently inserted data or rejected with an Error.
+     * @return {Objection.QueryBuilder} The associated query.
      */
     create(txModel, model) {
         return txModel.query().insert(model);
@@ -78,7 +77,7 @@ class AbstractDao {
      * @param {number} id      - Id number to identify the table entry. 
      * @param {Object} model   - The object with the updated data.
      * 
-     * @return {Promise<number>} A Promise to be either resolved with the number of updated rows or rejected with an Error.
+     * @return {Objection.QueryBuilder} The associated query.
      */
     edit(txModel, id, model) {
         return txModel.query().patch(model).where({ id });
@@ -90,7 +89,7 @@ class AbstractDao {
      * @param {Object} txModel - A copy of the Model that was bound to a transaction.
      * @param {number} id      - Id number to identify the table entry.
      *  
-     * @return {Promise<number>} A Promise to be either resolved with the number of deleted rows or rejected with an Error.
+     * @return {Objection.QueryBuilder} The associated query.
      */
     delete(txModel, id) {
         return txModel.query().deleteById(id);
