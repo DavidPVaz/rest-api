@@ -1,6 +1,6 @@
 import dotenv from 'dotenv';
 import mailer from '../utils/mail';
-import { server } from './server';
+import buildServer from './server';
 
 dotenv.config();
 
@@ -9,6 +9,7 @@ mailer.listen();
 (async function() {
 
     try {
+        const server = await buildServer();
         await server.start();
         console.log(`server listening at port ${server.settings.port}`);
         

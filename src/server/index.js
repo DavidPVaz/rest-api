@@ -17,15 +17,4 @@ const manifest = {
     register: { plugins: Plugins }
 };
 
-async function buildServer() {
-    
-    try {
-        return await Glue.compose(manifest);
-    } catch (error) {
-        console.error(error);       
-    }
-}
-
-const server = buildServer();
-
-export { server };
+export default async () => Glue.compose(manifest);
