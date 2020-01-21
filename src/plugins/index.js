@@ -1,7 +1,5 @@
+import Database from './database';
+
 export default [
-    { plugin: 'somePlugin' },
-    { plugin: 'somePlugin' },
-    { plugin: 'somePlugin' },
-    { plugin: 'somePlugin' },
-    { plugin: 'somePlugin' }
+    { plugin: Database }
 ];

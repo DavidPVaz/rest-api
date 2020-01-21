@@ -4,13 +4,6 @@
  * @link https://vincit.github.io/objection.js/
  */
 import { Model } from 'objection';
-import { knex } from '../../db/knex';
-/** 
- * Give the knex instance to objection
- *
- * Doing this installs the knex instance globally for all Models
- */
-Model.knex(knex);
 
 class BaseModel extends Model {
 
