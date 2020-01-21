@@ -27,7 +27,7 @@ async function authenticate(username, password) {
             throw Error();
         }
         
-        return sign(user.id, user.username, user.admin);
+        return sign(user.id, user.username);
         
     } catch (error) {
         throw Error('Invalid credentials.');
