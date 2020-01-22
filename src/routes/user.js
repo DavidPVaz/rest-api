@@ -6,32 +6,32 @@ const list = {
 };
 
 const get = {
-    handler: userController.get,
     validate: {
         params: numberValidation()
-    }
+    },
+    handler: userController.get
 };
 
 const create = {
-    handler: userController.create,
     validate: {
         payload: requiredFieldsValidation()
-    }
+    },
+    handler: userController.create
 };
 
 const edit = {
-    handler: userController.edit,
     validate: {
         params: numberValidation(),
         payload: fieldsValidation()
-    }
+    },
+    handler: userController.edit
 };
 
 const remove = {
-    handler: userController.remove,
     validate: {
         params: numberValidation()
-    }
+    },
+    handler: userController.remove
 };
 
 export default {

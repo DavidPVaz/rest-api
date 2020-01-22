@@ -54,7 +54,7 @@ async function create({ payload: user }, h) {
     try {
         const { id, username } = await userService.create(user);
         mailer.reportUserCreated({ username, email: process.env.SMTP_FAKE_MAIL }); // fake email for testing purposes. 
-        return h.reponse().created(`Resource created at: /api/user/${id}`);
+        return h.response().created(`Resource created at: /api/user/${id}`);
         
     } catch (error) {
         return Boom.conflict(error.message);
@@ -78,7 +78,7 @@ async function edit({ params, payload: user }, h) {
     try {
         const transactionResult = await userService.edit(id, user);
         console.log('transaction:', transactionResult); // need to remove this console.log
-        return h.reponse().code(204);
+        return h.response().code(204);
         
     } catch (error) {
         const boom = error.message.startsWith('User') ? Boom.notFound : Boom.conflict;
