@@ -1,6 +1,6 @@
 import dotenv from 'dotenv';
 import mailer from '../utils/mail';
-import buildServer from './server';
+import server from './server';
 
 dotenv.config();
 
@@ -9,10 +9,10 @@ mailer.listen();
 (async function() {
 
     try {
-        const server = await buildServer();
-        await server.start();
-        console.log(`server listening at port ${server.settings.port}`);
-        
+        const hapi = await server.build();
+        await hapi.start();
+        server.registerNodeSignals(hapi);
+        console.log(`server listening at port ${hapi.settings.port}`);
     } catch (error) {
         console.error(error);
         process.exit(1);

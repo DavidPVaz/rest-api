@@ -3,7 +3,7 @@ import { knex } from '../../db/knex';
 
 function register(server) {
     Model.knex(knex);
-    server.ext('onPostStop', knex.destroy);
+    server.ext('onPostStop', () => knex.destroy());
 }
 
 export default {

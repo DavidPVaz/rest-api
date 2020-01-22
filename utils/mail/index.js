@@ -45,7 +45,7 @@ export default (function() {
     Mailer.prototype = Object.create(EventEmitter.prototype);
     Mailer.prototype.constructor = Mailer;
     /** 
-     * Registers all events and listeners. 
+     * Registers all mailing events and listeners. 
      */
     Mailer.prototype.listen = function() {
         this.on(events.USER_CREATED, privateMethods.get(this).sendRegistrationMailTo);

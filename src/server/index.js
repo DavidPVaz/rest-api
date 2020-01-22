@@ -17,4 +17,24 @@ const manifest = {
     register: { plugins: Plugins }
 };
 
-export default async () => Glue.compose(manifest);
+function registerNodeSignals(hapi) {
+
+    const nodeSignals = [ 'exit', 'SIGINT' ];
+
+    nodeSignals.forEach(function(signal) {
+
+        process.on(signal, function() { 
+            
+            hapi.stop().then(function(err) {
+                console.log('Hapi server stopped');
+                process.exit((err) ? 1 : 0);
+            });
+        });
+
+    });
+}
+
+export default {
+    build: async () => Glue.compose(manifest),
+    registerNodeSignals
+};
