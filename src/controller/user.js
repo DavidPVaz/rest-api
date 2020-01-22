@@ -1,25 +1,22 @@
 /** 
  * @module UserController 
  */
+import Boom from '@hapi/boom';
 import userService from '../service/user';
 import mailer from '../../utils/mail';
 /**
  * API handler to `fetch` the list of users.
- *
- * @param {Object} request  - Request object.
- * @param {Object} response - Response object.
  * 
  * @return {*} A HTTPS `response` to the client with a `200` status code and the list of users, or a `404` 
  * with the error message.
  */
-async function list(request, response) {
+async function list() {
 
     try {
-        const list = await userService.list();
-        return response.status(200).send(list);
-        
+        return await userService.list();
+    
     } catch (error) {
-        return response.status(404).send(error.message);
+        return Boom.notFound(error.message);
     }
 }
 /**
@@ -27,67 +24,65 @@ async function list(request, response) {
  * 
  * @param {Object} request        - Request object.
  * @param {Object} request.params - Params property of the request.
- * @param {Object} response       - Response object.
  * 
  * @return {*} A HTTPS `response` to the client with a `200` status code and the user, or a `404` 
  * with the error message.
  */
-async function get({ params }, response) {
+async function get({ params }) {
 
     const { id } = params;
 
     try {
-        const user = await userService.get('id', id);
-        return response.status(200).send(user);
-
+        return await userService.get('id', id);
+        
     } catch (error) {
-        return response.status(404).send(error.message);
+        return Boom.notFound(error.message);
     }
 }
 /**
  * API handler to `create` an user.
  * 
- * @param {Object} request      - Request object.
- * @param {Object} request.body - Body property of the request, renamed to user.
- * @param {Object} response     - Response object.
+ * @param {Object} request         - Request object.
+ * @param {Object} request.payload - Payload property of the request, renamed to user.
+ * @param {Object} h               - Response toolkit.
  * 
  * @return {*} A HTTPS `response` to the client with a `201` status code and the `path` to the new resource, 
- * or a `400` with the error message.
+ * or a `409` with the error message.
  */
-async function create({ body: user }, response) {
+async function create({ payload: user }, h) {
 
     try {
         const { id, username } = await userService.create(user);
         mailer.reportUserCreated({ username, email: process.env.SMTP_FAKE_MAIL }); // fake email for testing purposes. 
-        return response.status(201).send(`Resource created at: /api/user/${id}`);
+        return h.reponse().created(`Resource created at: /api/user/${id}`);
         
     } catch (error) {
-        return response.status(400).send(error.message);
+        return Boom.conflict(error.message);
     }
 }
 /**
  * API handler to `update` an user.
  * 
- * @param {Object} request        - Request object.
- * @param {Object} request.params - Params property of the request.
- * @param {Object} request.body   - Body property of the request, renamed to user.
- * @param {Object} response       - Response object.
+ * @param {Object} request         - Request object.
+ * @param {Object} request.params  - Params property of the request.
+ * @param {Object} request.payload - Payload property of the request, renamed to user.
+ * @param {Object} response        - Response toolkit.
  * 
- * @return {*} A HTTPS `response` to the client with a `204` status code, or a `400` / `404` with the error message, 
+ * @return {*} A HTTPS `response` to the client with a `204` status code, or a `404` / `409` with the error message, 
  * depending on the failure cause.
  */
-async function edit({ params, body: user }, response) {
+async function edit({ params, payload: user }, h) {
 
     const { id } = params;
 
     try {
-        await userService.edit(id, user);
-        return response.status(204).end();
+        const transactionResult = await userService.edit(id, user);
+        console.log('transaction:', transactionResult); // need to remove this console.log
+        return h.reponse().code(204);
         
     } catch (error) {
-        return error.message.startsWith('User') 
-            ? response.status(404).send(error.message) 
-            : response.status(400).send(error.message);
+        const boom = error.message.startsWith('User') ? Boom.notFound : Boom.conflict;
+        return boom(error.message);
     }
 }
 /**
@@ -95,20 +90,20 @@ async function edit({ params, body: user }, response) {
  * 
  * @param {Object} request        - Request object.
  * @param {Object} request.params - Params property of the request.
- * @param {Object} response       - Response object.
+ * @param {Object} h              - Response toolkit.
  * 
  * @return {*} A HTTPS `response` to the client with a `204` status code, or a `404` with the error message.
  */
-async function deleteUser({ params }, response) {
+async function remove({ params }, h) {
 
     const { id } = params;
 
     try {
-        await userService.deleteUser(id);
-        return response.status(204).end();
+        await userService.remove(id);
+        return h.response().code(204);
 
     } catch (error) {
-        return response.status(404).send(error.message);
+        return Boom.notFound(error.message);
     }
 }
 
@@ -117,5 +112,5 @@ export default {
     get,
     create,
     edit,
-    deleteUser
+    remove
 };

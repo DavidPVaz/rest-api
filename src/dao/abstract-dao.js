@@ -49,8 +49,8 @@ class AbstractDao {
     /**
      * Performs a query that `fetch` a especific row in this Model database table.
      *
-     * @param {string}                  field - Identify the column name of the table.
-     * @param {(string|number|boolean)} value - Value associated with that column.
+     * @param {string}         field - Identify the column name of the table.
+     * @param {(string|number} value - Value associated with that column.
      * 
      * @return {Objection.QueryBuilder} The associated query.
      */

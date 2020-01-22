@@ -1,6 +1,7 @@
 /**  
  * @module AuthenticationController 
  */
+import Boom from '@hapi/boom';
 import authenticationService from '../service/authentication';
 /**
  * API handler for user `login`.
@@ -18,10 +19,10 @@ async function login({ payload: user }, h) {
 
     try {
         const token = await authenticationService.authenticate(username, password);
-        return h.response().header('authentication-jwt', token);
+        return h.response().header('Server-Authorization', token);
         
     } catch (error) {
-        return response.status(401).send(error.message); // will return a Boom
+        return Boom.unauthorized(error.message);
     }
 }
 

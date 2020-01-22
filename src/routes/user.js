@@ -15,7 +15,6 @@ const get = {
 const create = {
     handler: userController.create,
     validate: {
-        params: numberValidation(),
         payload: requiredFieldsValidation()
     }
 };
@@ -29,7 +28,7 @@ const edit = {
 };
 
 const remove = {
-    handler: userController.deleteUser,
+    handler: userController.remove,
     validate: {
         params: numberValidation()
     }

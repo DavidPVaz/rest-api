@@ -61,8 +61,8 @@ async function list() {
 /**
  * `Fetch` a single user from the database.
  *
- * @param {string}                  field - The column name in the users table.
- * @param {(string|number|boolean)} value - Value associated with that column.
+ * @param {string}         field - The column name in the users table.
+ * @param {(string|number} value - Value associated with that column.
  * 
  * @return {Object} The queried user.
  * 
@@ -83,7 +83,8 @@ async function get(field, value) {
  *
  * @param {Object} user - User data to persist.
  * 
- * @return {Promise<Object>} A Promise to be either resolved with the inserted user or rejected with an Error.
+ * @return {Promise<Object>} The transaction is committed if the promise returned from the callback is resolved
+ *  successfully. If the returned Promise is rejected or an error is thrown inside the callback the transaction is rolled back.
  * 
  * @throw Will throw an Error if the provided `username` or `email` values of the user data already exists in the database. 
  */
@@ -101,7 +102,7 @@ function create(user) {
  * @param {number} id          - Id number of the user.
  * @param {Object} updatedUser - Updated user data.
  * 
- * @return {Promise<number>} A Promise to be either resolved with the number of updated users or rejected with an Error.
+ * @return {Objection.QueryBuilder} The associated query.
  * 
  * @throw Will throw an Error if an user with the provided `id` is not found in the database, or if the provided `username` 
  * or `email` values already exist.
@@ -118,11 +119,11 @@ function edit(id, updatedUser) {
  *
  * @param {number} id - Id number of the user.
  * 
- * @return {Promise<number>} A Promise to be either resolved with the number of deleted users or rejected with an Error.
+ * @return {Objection.QueryBuilder} The associated query.
  * 
  * @throw Will throw an Error if an user with the provided `id` is not found in the database.
  */
-function deleteUser(id) {
+function remove(id) {
     return transaction(userDao.getModel(), async txUser => {
         await checkIfUserExists(id);
         return userDao.delete(txUser, id);
@@ -134,5 +135,5 @@ export default {
     get,
     create,
     edit,
-    deleteUser
+    remove
 };
