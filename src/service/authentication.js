@@ -14,9 +14,9 @@ import Config from '../../config';
  * 
  * @return {string} A Json Web Token.
  */
-function sign(id, username, admin) {
+function sign(id, username) {
     const key = Buffer.from(Config.secret, 'base64');
-    return jsonWebToken.sign({ id, username, admin }, key, { expiresIn: '1h' });
+    return jsonWebToken.sign({ id, username }, key, { expiresIn: '1h' });
 }
 /**
  * Authenticates an existing user.

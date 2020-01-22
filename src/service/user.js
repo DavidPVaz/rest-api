@@ -14,16 +14,9 @@ async function checkForExistingValues(user) {
 
     const { username, email } = user;
 
-    let existsWithUsername;
-    let existsWithEmail;
-
-    try {
-        existsWithUsername = await userDao.findBy('username', username);
-        existsWithEmail = await userDao.findBy('email', email);
-    } catch (error) {
-        console.error(error.message);
-    }
-
+    const existsWithUsername = await userDao.findBy('username', username);
+    const existsWithEmail = await userDao.findBy('email', email);
+    
     if (existsWithUsername) {
         throw Error('That username already exists.');
     }
@@ -41,13 +34,7 @@ async function checkForExistingValues(user) {
  */
 async function checkIfUserExists(id) {
 
-    let user;
-
-    try {
-        user = await userDao.findById(id);
-    } catch (error) {
-        console.error(error.message);
-    }
+    const user = await userDao.findById(id);
 
     if (!user) {
         throw Error(`User ${id} was not found`);
@@ -62,13 +49,7 @@ async function checkIfUserExists(id) {
  */
 async function list() {
 
-    let list;
-
-    try {
-        list = await userDao.list();
-    } catch (error) {
-        console.error(error.message);
-    }
+    const list = await userDao.list();
 
     if (list.length === 0) {
         throw Error('No users to list.');
@@ -88,13 +69,7 @@ async function list() {
  */
 async function get(field, value) {
 
-    let user;
-
-    try {
-        user = await userDao.findBy(field, value);
-    } catch (error) {
-        console.error(error.message);
-    }
+    const user = await userDao.findBy(field, value);
 
     if (!user) {
         throw Error(`User ${value} was not found`);
