@@ -3,6 +3,7 @@
  */
 import { transaction } from 'objection';
 import userDao from '../dao/user';
+import { generateHash } from '../../utils/hash';
 /**
  * Checks if the provided `username` or `email` already exist.
  * 
@@ -89,6 +90,8 @@ async function get(field, value) {
 function create(user) {
     return transaction(userDao.getModel(), async txUser => {
         await checkForExistingValues(user);
+        const { password } = user; 
+        user.password = await generateHash(password);
         return userDao.create(txUser, user);
     });
 }
