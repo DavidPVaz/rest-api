@@ -1,21 +1,22 @@
 /** 
  * @module Router
  * 
- * @file This module assigns each configuration object to a Router HTTPS request method.
+ * @file This module defines configuration objects to map HTTPS request method and API enpoints to its configuration object. 
  * 
- * @see module:Routes
+ * The objects have the following structure:
+ * 
+ * @property {string} method  - The HTTPS request method.
+ * @property {string} path    - The path to the endpoint.
+ * @property {Object} config  - Configuration object for this route.
  */
-import express from 'express';
-import routes from './routes';
+import authentication from './authentication';
+import user from './user';
 
-const router = express.Router();
-
-router.post(routes.login.path, routes.login.middleware, routes.login.handler);
-
-router.get(routes.getUserList.path, routes.getUserList.middleware, routes.getUserList.handler);
-router.get(routes.getUser.path, routes.getUser.middleware, routes.getUser.handler);
-router.post(routes.postUser.path, routes.postUser.middleware, routes.postUser.handler);
-router.put(routes.putUser.path, routes.putUser.middleware, routes.putUser.handler);
-router.delete(routes.deleteUser.path, routes.deleteUser.middleware, routes.deleteUser.handler);
-
-export { router };
+export default [
+    { method: 'POST', path: '/api/login', config: authentication.login },
+    { method: 'GET', path: '/api/user', config: user.list },
+    { method: 'GET', path: '/api/user/{id}', config: user.get },
+    { method: 'POST', path: '/api/user', config: user.create },
+    { method: 'PUT', path: '/api/user/{id}', config: user.edit },
+    { method: 'DELETE', path: '/api/user/{id}', config: user.remove } 
+];

@@ -3,18 +3,13 @@
  */
 import Joi from '@hapi/joi';
 /**
- * Validates the `request.body` against a schema with required fields and its constraints.
- *
- * @param {Object} request - The request object.
- * @param {Object} request.body - Body property of the request.
+ * Defines a schema with required fields and its constraints.
  * 
- * @return {Object} An object with an error and value properties.
- * If the input was valid, then the error will be `undefined`. 
- * If the input was invalid, a ValidationError object is assigned to error. 
+ * @return {Object} A schema to be used by Hapi.
  */
-function requiredFieldsValidation({ body }) {
+function requiredFieldsValidation() {
 
-    const schema = Joi.object({
+    return Joi.object({
         username: Joi.string().alphanum().min(3).max(20).required(),
         email: Joi.string().max(30).email().required(),
         password: Joi.string()
@@ -28,55 +23,42 @@ function requiredFieldsValidation({ body }) {
             }),
         admin: Joi.boolean()
     });
-    
-    return schema.validate(body);
 }
 /**
- * Validates the `request.body` against a schema with optional fields and its constraints.
+ * Defines a schema with optional fields and its constraints.
  *
- * @param {Object} request - The request object.
- * @param {Object} request.body - Body property of the request.
- * 
- * @return {Object} An object with an error and value properties.
- * If the input was valid, then the error will be `undefined`. 
- * If the input was invalid, a ValidationError object is assigned to error. 
+ * @return {Object} A schema to be used by Hapi.
  */
-function fieldsValidation({ body }) {
+function fieldsValidation() {
 
-    const schema = Joi.object({
+    return Joi.object({
         username: Joi.string().alphanum().min(3).max(20),
         email: Joi.string().max(30).email(),
-        password: Joi.string()
-            .regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[.,!@#$%^&*])(?=.{8,})/)
-            .error(() => {
-                const error = Error();
-                error.details = [ { message: 'Password must have a minimum of 8 characters and contain at least: one lower' 
-                + 'case letter, one uppercase letter, one number and one special character(.,!@#$%^&*)' } ];
-                return error;
-            }),
         admin: Joi.boolean()
     });
-    
-    return schema.validate(body);
 }
 /** 
- * Validates the `request.body` against a schema with required fields.
+ * Defines a schema with required fields.
  *
- * @param {Object} request - The request object.
- * @param {Object} request.body - Body property of the request.
- * 
- * @return {Object} An object with an error and value properties.
- * If the input was valid, then the error will be `undefined`. 
- * If the input was invalid, a ValidationError object is assigned to error.
+ * @return {Object} A schema to be used by Hapi.
  */
-function loginValidation({ body }) {
+function loginValidation() {
 
-    const schema = Joi.object({
+    return Joi.object({
         username: Joi.string().required(),
         password: Joi.string().required()
     });
-    
-    return schema.validate(body);
+}
+/** 
+ * Defines a schema with required number.
+ *
+ * @return {Object} A schema to be used by Hapi.
+ */
+function numberValidation() {
+
+    return Joi.object({
+        id: Joi.number().required()
+    });
 }
 
-export { requiredFieldsValidation, fieldsValidation, loginValidation };
+export { requiredFieldsValidation, fieldsValidation, loginValidation, numberValidation };
