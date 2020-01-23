@@ -18,7 +18,7 @@ class AbstractDao {
     /**
      * Gets this DAO Model.
      * 
-     * To be used in `Service` for `trasaction` binding. {@link https://vincit.github.io/objection.js/}
+     * To be used in `Service` for `trasaction` binding or to create a query. {@link https://vincit.github.io/objection.js/}
      * 
      * @return {Object} `this.model`.
      */
