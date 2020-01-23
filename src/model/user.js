@@ -19,14 +19,13 @@ class User extends BaseModel {
                 id: { type: 'integer' },
                 username: { type: 'string' },
                 password: { type: 'string' },
-                email: { type: 'string' },
-                admin: { type: 'boolean' }
+                email: { type: 'string' }
             }
         };
     }
     
     $formatJson(json) {
-        const { password, admin, ...result } = super.$formatJson(json);
+        const { password, ...result } = super.$formatJson(json);
 
         return result;
     }

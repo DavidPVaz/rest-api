@@ -80,7 +80,7 @@ class AbstractDao {
      * @return {Objection.QueryBuilder} The associated query.
      */
     edit(txModel, id, model) {
-        return txModel.query().patch(model).where({ id });
+        return txModel.query().patch(model).findById(id);
     }
 
     /**
