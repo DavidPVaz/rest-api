@@ -1,4 +1,6 @@
 /** 
+ * @module User
+ * 
  * @file A BaseModel subclass represents a database table.
  * 
  * @link https://vincit.github.io/objection.js/

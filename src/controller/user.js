@@ -77,7 +77,6 @@ async function edit({ params, payload: user }, h) {
 
     try {
         await userService.edit(id, user);
-        // console.log('transaction:', transactionResult); // need to remove this console.log
         return h.response().code(204);
         
     } catch (error) {

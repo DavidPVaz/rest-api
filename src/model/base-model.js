@@ -1,4 +1,6 @@
 /** 
+ * @module BaseModel
+ * 
  * @file The BaseModel is a super class for all Models, where shared configuration is defined.
  *
  * @link https://vincit.github.io/objection.js/

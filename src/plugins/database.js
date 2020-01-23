@@ -1,3 +1,6 @@
+/** 
+ * @module DatabasePlugin 
+ */
 import { Model } from 'objection';
 import { knex } from '../../db/knex';
 

@@ -15,16 +15,11 @@ async function checkForExistingValues(user) {
 
     const { username, email } = user;
 
-    const existsWithUsername = await userDao.findBy('username', username);
-    const existsWithEmail = await userDao.findBy('email', email);
-    
-    if (existsWithUsername) {
-        throw Error('That username already exists.');
-    }
+    const result = await userDao.getModel().query().skipUndefined().where('username', username).orWhere('email', email);
 
-    if (existsWithEmail) {
-        throw Error('That email already exists.');
-    } 
+    if (result.length > 0) {
+        throw Error('Credentials already exist');
+    }
 }
 /**
  * Checks if the provided `id` refers to an existing user.
@@ -44,7 +39,7 @@ async function checkIfUserExists(id) {
 /**
  * `Fetch` all users from the database.
  *
- * @return {Object[]} An array with all the users.
+ * @return {Promise<Object[]>} An array with all the users.
  * 
  * @throw Will throw an Error if there are no users in the database.
  */
@@ -64,7 +59,7 @@ async function list() {
  * @param {string}         field - The column name in the users table.
  * @param {(string|number} value - Value associated with that column.
  * 
- * @return {Object} The queried user.
+ * @return {Promise<Object>} The queried user.
  * 
  * @throw Will throw an Error if an user with the provided value is not found in the database.
  */
@@ -83,8 +78,7 @@ async function get(field, value) {
  *
  * @param {Object} user - User data to persist.
  * 
- * @return {Promise<Object>} The transaction is committed if the promise returned from the callback is resolved
- *  successfully. If the returned Promise is rejected or an error is thrown inside the callback the transaction is rolled back.
+ * @return {Promise<Object>} The created user.
  * 
  * @throw Will throw an Error if the provided `username` or `email` values of the user data already exists in the database. 
  */
@@ -102,7 +96,7 @@ function create(user) {
  * @param {number} id          - Id number of the user.
  * @param {Object} updatedUser - Updated user data.
  * 
- * @return {Objection.QueryBuilder} The associated query.
+ * @return {Promise<number>} The number of updated rows.
  * 
  * @throw Will throw an Error if an user with the provided `id` is not found in the database, or if the provided `username` 
  * or `email` values already exist.
@@ -119,7 +113,7 @@ function edit(id, updatedUser) {
  *
  * @param {number} id - Id number of the user.
  * 
- * @return {Objection.QueryBuilder} The associated query.
+ * @return {Promise<number>} The number of deleted rows.
  * 
  * @throw Will throw an Error if an user with the provided `id` is not found in the database.
  */

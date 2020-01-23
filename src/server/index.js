@@ -4,7 +4,9 @@
 import Glue from '@hapi/glue';
 import Config from '../../config';
 import Plugins from '../plugins';
-
+/** 
+ * Manifest object with server configurations
+ */
 const manifest = {
     server: {
         host: Config.host,
@@ -16,7 +18,9 @@ const manifest = {
     },
     register: { plugins: Plugins }
 };
-
+/** 
+ * Graceful server shutdown
+ */
 function registerNodeSignals(hapi) {
 
     const nodeSignals = [ 'exit', 'SIGINT' ];

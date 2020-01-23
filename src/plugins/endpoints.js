@@ -1,3 +1,6 @@
+/** 
+ * @module EndpointsPlugin 
+ */
 import endpoints from '../routes';
 
 function register(server) {

@@ -1,7 +1,7 @@
 /** 
  * @module Endpoints
  * 
- * @file This module defines configuration objects to map HTTPS request method and API enpoints to its configuration object. 
+ * @file This module maps HTTPS request method and API enpoints to its configuration object. 
  * 
  * The objects have the following structure:
  * 

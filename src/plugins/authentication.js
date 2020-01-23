@@ -1,3 +1,6 @@
+/** 
+ * @module AuthPlugin 
+ */
 import HapiJWT from 'hapi-auth-jwt2';
 import userService from '../service/user';
 import Config from '../../config';
@@ -6,8 +9,8 @@ async function validate(decoded) {
     
     try {
         await userService.get('id', decoded.id);
-        
         return { isValid: true };
+        
     } catch (error) {
         return { isValid: false };
     }

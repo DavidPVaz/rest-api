@@ -1,3 +1,8 @@
+/** 
+ * @module UserRoutes
+ * 
+ * @file Defines user routes configuration objects.
+ */
 import userController from '../controller/user';
 import { numberValidation, fieldsValidation, requiredFieldsValidation } from '../../utils/validation';
 
