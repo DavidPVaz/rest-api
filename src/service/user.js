@@ -45,7 +45,7 @@ async function checkIfUserExists(id) {
     const user = await userDao.findById(id);
 
     if (!user) {
-        throw Error(`User ${id} was not found`);
+        throw Error(`User with id ${id} wasn't found`);
     }
 }
 /**
@@ -55,8 +55,14 @@ async function checkIfUserExists(id) {
  *
  * @throw Will throw an Error if there are no users in the database.
  */
-function list() {
-    return userDao.list();
+async function list() {
+    const list = await userDao.list();
+
+    if (list.length === 0) {
+        throw Error('No users to list.');
+    }
+
+    return list;
 }
 /**
  * `Fetch` a single user from the database.
@@ -68,8 +74,14 @@ function list() {
  *
  * @throw Will throw an Error if an user with the provided value is not found in the database.
  */
-function get(field, value) {
-    return userDao.findBy(field, value);
+async function get(field, value) {
+    const user = await userDao.findBy(field, value);
+
+    if (!user) {
+        throw Error(`User with ${field} ${value} wasn't found.`);
+    }
+
+    return user;
 }
 /**
  * `Creates` a new user in the database.
