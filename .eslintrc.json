@@ -4,9 +4,7 @@
         "node": true
     },
     "root": true,
-    "extends": [
-        "airbnb-base"
-    ],
+    "extends": ["airbnb-base", "prettier"],
     "plugins": ["import"],
     "globals": {
         "Atomics": "readonly",
@@ -17,20 +15,30 @@
         "sourceType": "module"
     },
     "rules": {
-        "indent": ["error", 4],
+        "linebreak-style": ["error", "unix"],
         "comma-dangle": ["error", "never"],
         "consistent-return": ["off"],
         "arrow-parens": ["error", "as-needed"],
-        "semi-spacing": ["error", {"before": false, "after": true}],
+        "semi-spacing": ["error", { "before": false, "after": true }],
         "space-in-parens": ["error", "never"],
-        "object-curly-spacing": ["error", "always", { "objectsInObjects": false }],
+        "object-curly-spacing": [
+            "error",
+            "always",
+            { "objectsInObjects": false }
+        ],
         "array-bracket-spacing": ["error", "always"],
-        "space-before-function-paren": ["error", {"anonymous": "never", "named": "never", "asyncArrow": "always"}],
+        "space-before-function-paren": [
+            "error",
+            { "anonymous": "never", "named": "never", "asyncArrow": "always" }
+        ],
         "comma-spacing": ["error", { "before": false, "after": true }],
         "space-before-blocks": ["error", "always"],
         "arrow-spacing": ["error", { "before": true, "after": true }],
-        "keyword-spacing": ["error", {"before": true, "after": true}],
-        "key-spacing": ["error", { "beforeColon": false, "afterColon": true, "mode": "strict"}],
+        "keyword-spacing": ["error", { "before": true, "after": true }],
+        "key-spacing": [
+            "error",
+            { "beforeColon": false, "afterColon": true, "mode": "strict" }
+        ],
         "func-call-spacing": ["error", "never"],
         "no-console": ["off"],
         "wrap-iife": "off",
@@ -46,6 +54,8 @@
         "object-curly-newline": "off",
         "class-methods-use-this": "off",
         "no-param-reassign": "off",
-        "max-len": ["error", { "code": 128 }]
+        "max-len": ["error", { "code": 128 }],
+        "implicit-arrow-linebreak": "off",
+        "operator-linebreak": "off"
     }
 }
