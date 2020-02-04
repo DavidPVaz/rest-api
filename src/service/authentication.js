@@ -31,10 +31,9 @@ function sign(id, username) {
 async function authenticate(username, password) {
     try {
         const user = await userService.get('username', username);
-
         const isValid = await validatePassword(password, user.password);
 
-        if (!user || !isValid) {
+        if (!isValid) {
             throw Error();
         }
 
