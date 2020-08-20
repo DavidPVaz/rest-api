@@ -22,7 +22,7 @@
     "@hapi/glue": "^7.0.0",
     "@hapi/hapi": "^19.1.1",
     "@hapi/joi": "^17.1.0",
-    "bcrypt": "^4.0.0",
+    "bcrypt": "^5.0.0",
     "dotenv": "^8.2.0",
     "esm": "^3.2.25",
     "hapi-auth-jwt2": "^9.0.1",
