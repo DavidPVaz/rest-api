@@ -20,10 +20,10 @@ describe('Model: user', () => {
     it('should contain a schema', () => {
         expect(UserModel.jsonSchema).to.be.an.object();
     });
-    /*
+
     it('should contain many-to-many relation mappings to role model', () => {
         expect(UserModel.relationMappings).to.be.an.object();
         expect(UserModel.relationMappings.roles).to.exist();
         expect(UserModel.relationMappings.roles.relation).to.equals(BaseModel.ManyToManyRelation);
-    });*/
+    });
 });

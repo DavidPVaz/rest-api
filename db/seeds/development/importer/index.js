@@ -1,7 +1,6 @@
 const FsPromises = require('fs').promises;
 const Path = require('path');
 const { parseCsv } = require('utils/csv');
-const { confirmForeignKeysIntegrityResult } = require('../error');
 const {
     needsInterpolation,
     isTransformationAvailable,
@@ -11,11 +10,6 @@ const {
 const internals = {};
 
 internals.MAX_SEEDS_SIZE = 500;
-internals.assertForeignKeysIntegrity = async knex => {
-    const result = await knex.raw('PRAGMA main.foreign_key_check');
-    confirmForeignKeysIntegrityResult(result);
-};
-internals.setForeignKeysOff = knex => knex.raw('PRAGMA foreign_keys=OFF');
 internals.seedSearchFolder = Path.join(__dirname, '../csv-data');
 internals.isBoolean = value => value === 'true' || value === 'false';
 internals.parseBoolean = value => value === 'true';
@@ -69,13 +63,18 @@ internals.csvOptions = {
  * @returns {Array<string>} the name of the files
  */
 internals.getSeedsFileName = async requestedTables => {
-    const allTables = (await FsPromises.readdir(internals.seedSearchFolder)).map(
-        file => Path.parse(file).name
-    );
+    const allTables = (await FsPromises.readdir(internals.seedSearchFolder))
+        .map(file => Path.parse(file).name)
+        .sort();
 
     return requestedTables.length === 0
         ? allTables
-        : allTables.filter(fileName => !!requestedTables.find(tableName => fileName === tableName));
+        : allTables.filter(
+              fileName =>
+                  !!requestedTables.find(
+                      tableName => fileName.slice(fileName.indexOf('.') + 1) === tableName
+                  )
+          );
 };
 
 /**
@@ -86,10 +85,11 @@ internals.getSeedsFileName = async requestedTables => {
 internals.parseCsvData = targetFiles =>
     Promise.all(
         targetFiles.map(async file => {
+            const table = file.slice(file.indexOf('.') + 1);
             const dataFilePath = `${internals.seedSearchFolder}/${file}.csv`;
             const parsedData = await parseCsv(dataFilePath, internals.csvOptions);
 
-            return { [file]: parsedData };
+            return { [table]: parsedData };
         })
     );
 
@@ -110,12 +110,10 @@ exports.getTableSeeds = async function (...requestedTables) {
 
 // USED BY KNEX
 exports.seed = async function (knex) {
-    await internals.setForeignKeysOff(knex);
-
     await knex.transaction(async tx => {
         const seeds = await exports.getTableSeeds();
 
-        await Promise.all(
+        return Promise.all(
             seeds.reduce(
                 (queries, tableData) => [
                     ...queries,
@@ -128,7 +126,5 @@ exports.seed = async function (knex) {
                 []
             )
         );
-
-        return internals.assertForeignKeysIntegrity(tx);
     });
 };
