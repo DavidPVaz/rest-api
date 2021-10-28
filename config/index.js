@@ -1,42 +1,34 @@
-/** 
+/**
  * @module Config
  */
-import fs from 'fs';
-import crypto from 'crypto';
-/** 
- * `TLS` configuration object.
- * 
- * @property {string} key  - TLS key.
- * @property {string} cert - TLS certificate.
- */
-const tls = {
-    key: fs.readFileSync('config/tls/server.key'),
-    cert: fs.readFileSync('config/tls/server.crt')
-};
-/** 
+const crypto = require('crypto');
+const fs = require('fs');
+
+/**
  * `Secret` used to generate Json Web Token.
  */
-const secret = crypto.randomBytes(256).toString('base64');
-/** 
- * Server `CORS`
+exports.secret = crypto.randomBytes(256).toString('base64');
+/**
+ * Server API props
  */
-const cors = {
-    origin: [ '*' ],
-    maxAge: 3600
+exports.api = {
+    host: process.env.API_HOST || 'localhost',
+    port: process.env.API_PORT || 8000,
+    cors: {
+        origin: ['*'],
+        maxAge: 3600
+    },
+    tls: {
+        key: fs.readFileSync('config/tls/server.key'),
+        cert: fs.readFileSync('config/tls/server.crt')
+    }
 };
-/** 
- * Server `HOST`
+/**
+ * Hapi Swagger tag settings
  */
-const host = process.env.API_HOST || 'localhost';
-/** 
- * Server `PORT`
- */
-const port = process.env.API_PORT || 8888;
-
-export default {
-    tls,
-    secret,
-    host,
-    port,
-    cors
-};
+exports.documentationTags = [
+    {
+        tags: ['api', 'Authorization'],
+        routesPath: 'modules/authorization/routes'
+    }
+];

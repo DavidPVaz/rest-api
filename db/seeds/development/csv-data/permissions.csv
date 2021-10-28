@@ -1,0 +1,9 @@
+id,action,description,resource_id
+1,create,Create a new user,1
+2,read,Fetch a user,1
+3,update,Update an existing user,1
+4,delete,Delete a user,1
+5,create,Create a new role,2
+6,read,Fetch a role,2
+7,update,Update an existing role,2
+8,delete,Delete a role,2

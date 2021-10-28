@@ -1,61 +1,24 @@
 {
-    "env": {
-        "es6": true,
-        "node": true
-    },
-    "root": true,
-    "extends": ["airbnb-base", "prettier"],
-    "plugins": ["import"],
-    "globals": {
-        "Atomics": "readonly",
-        "SharedArrayBuffer": "readonly"
-    },
+    "extends": ["eslint:recommended", "plugin:prettier/recommended"],
     "parserOptions": {
         "ecmaVersion": 2018,
-        "sourceType": "module"
+        "ecmaFeatures": {
+            "impliedStrict": true
+        }
     },
+    "env": {
+        "node": true,
+        "es6": true
+    },
+    "globals": {},
     "rules": {
-        "linebreak-style": ["error", "unix"],
-        "comma-dangle": ["error", "never"],
-        "consistent-return": ["off"],
-        "arrow-parens": ["error", "as-needed"],
-        "semi-spacing": ["error", { "before": false, "after": true }],
-        "space-in-parens": ["error", "never"],
-        "object-curly-spacing": [
+        "strict": [2, "global"],
+        "eqeqeq": [2, "smart"],
+        "no-unused-vars": [
             "error",
-            "always",
-            { "objectsInObjects": false }
+            { "vars": "all", "args": "after-used", "ignoreRestSiblings": true }
         ],
-        "array-bracket-spacing": ["error", "always"],
-        "space-before-function-paren": [
-            "error",
-            { "anonymous": "never", "named": "never", "asyncArrow": "always" }
-        ],
-        "comma-spacing": ["error", { "before": false, "after": true }],
-        "space-before-blocks": ["error", "always"],
-        "arrow-spacing": ["error", { "before": true, "after": true }],
-        "keyword-spacing": ["error", { "before": true, "after": true }],
-        "key-spacing": [
-            "error",
-            { "beforeColon": false, "afterColon": true, "mode": "strict" }
-        ],
-        "func-call-spacing": ["error", "never"],
-        "no-console": ["off"],
-        "wrap-iife": "off",
-        "import/prefer-default-export": "off",
-        "padded-blocks": ["off"],
-        "no-trailing-spaces": "off",
-        "no-restricted-syntax": ["off"],
-        "func-names": ["error", "never"],
-        "no-shadow": "off",
-        "eqeqeq": ["error", "always"],
-        "newline-per-chained-call": "off",
-        "prefer-arrow-callback": "off",
-        "object-curly-newline": "off",
-        "class-methods-use-this": "off",
-        "no-param-reassign": "off",
-        "max-len": ["error", { "code": 128 }],
-        "implicit-arrow-linebreak": "off",
-        "operator-linebreak": "off"
-    }
+        "no-console": "off"
+    },
+    "plugins": []
 }

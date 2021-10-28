@@ -1,0 +1,10 @@
+{
+    "compilerOptions": {
+        "target": "esnext",
+        "moduleResolution": "node",
+        "baseUrl": "./lib",
+        "allowSyntheticDefaultImports": true
+    },
+    "exclude": ["node_modules"],
+    "include": ["lib/**/*", "test/**/*"]
+}

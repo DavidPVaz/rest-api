@@ -1,0 +1,3 @@
+id,username,email,password,name,active,created_at
+1,admin,admin@gmail.com,$2a$10$VAVGq0cwRzsHWRLq9wexk.vE9AJlvE0IOoXt7Ru/J/hQVxgJz7ZG.,Admin User,true,
+12,guest,guest@gmail.com,$2b$10$IqUYPRge2vRmrcV/60Y47ei5Ui6qbj42ZyQVFrsuvFKSkRGIEzu5.,Guest User,true,"${toRelativePastDate(10,'days')}"

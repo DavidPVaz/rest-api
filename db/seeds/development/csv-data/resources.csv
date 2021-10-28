@@ -1,0 +1,4 @@
+id,name,description
+1,user,System Users
+2,role,System Roles
+3,permission,System Permissions

@@ -1,43 +1,51 @@
 {
-  "name": "restapi",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "start": "nodemon -r esm src/index.js",
-    "reset": "node -r esm utils/database/schema.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/DavidPVaz/restAPI.git"
-  },
-  "author": "David Vaz <davidzav13@gmail.com>",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/DavidPVaz/restAPI/issues"
-  },
-  "homepage": "https://github.com/DavidPVaz/restAPI#readme",
-  "dependencies": {
-    "@hapi/boom": "^9.0.0",
-    "@hapi/glue": "^7.0.0",
-    "@hapi/hapi": "^19.1.1",
-    "@hapi/joi": "^17.1.0",
-    "bcrypt": "^4.0.0",
-    "dotenv": "^8.2.0",
-    "esm": "^3.2.25",
-    "hapi-auth-jwt2": "^9.0.1",
-    "jsonwebtoken": "^8.5.1",
-    "knex": "^0.20.10",
-    "mailgen": "^2.0.10",
-    "nodemailer": "^6.4.3",
-    "objection": "^2.1.3",
-    "pg": "^7.18.2"
-  },
-  "devDependencies": {
-    "eslint": "^6.8.0",
-    "eslint-config-airbnb-base": "^14.0.0",
-    "eslint-config-prettier": "^6.10.0",
-    "eslint-plugin-import": "^2.20.1",
-    "nodemon": "^2.0.2"
-  }
+    "name": "restapi",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "start": "NODE_PATH=$NODE_PATH:lib:. TZ=UTC node lib/index.js",
+        "watch": "NODE_PATH=$NODE_PATH:lib:. TZ=UTC DEBUG=true nodemon --watch lib lib/index.js",
+        "test": "NODE_PATH=$NODE_PATH:lib:. TZ=UTC node -r ./node_modules/.bin/lab --environment testing",
+        "test:grep": "NODE_PATH=$NODE_PATH:llib:. TZ=UTC node -r ./node_modules/.bin/lab --environment testing --coverage-path none --grep",
+        "reset": "NODE_PATH=$NODE_PATH:lib:. TZ=UTC node lib/utils/schema.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/DavidPVaz/restAPI.git"
+    },
+    "author": "David Vaz <davidzav13@gmail.com>",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/DavidPVaz/restAPI/issues"
+    },
+    "homepage": "https://github.com/DavidPVaz/restAPI#readme",
+    "dependencies": {
+        "@hapi/boom": "^9.1.4",
+        "@hapi/glue": "^8.0.0",
+        "@hapi/hapi": "^20.2.1",
+        "@hapi/inert": "^6.0.4",
+        "@hapi/vision": "^6.1.0",
+        "bcrypt": "^5.0.1",
+        "dotenv": "^10.0.0",
+        "hapi-auth-jwt2": "^10.2.0",
+        "hapi-swagger": "^14.2.4",
+        "joi": "^17.4.2",
+        "jsonwebtoken": "^8.5.1",
+        "knex": "^0.95.12",
+        "mailgen": "^2.0.15",
+        "nodemailer": "^6.7.0",
+        "objection": "^2.2.17",
+        "pg": "^8.7.1",
+        "qs": "^6.10.1"
+    },
+    "devDependencies": {
+        "@hapi/code": "^8.0.3",
+        "@hapi/lab": "^24.3.2",
+        "codecov": "^3.8.3",
+        "csv-parser": "^3.0.0",
+        "eslint": "^8.1.0",
+        "eslint-config-prettier": "^8.3.0",
+        "nodemon": "^2.0.14"
+    }
 }
