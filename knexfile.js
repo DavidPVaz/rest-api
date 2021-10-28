@@ -1,14 +1,11 @@
 /**
  * @file Where knex configuration object for different node environments is defined.
- *
  * {@link http://knexjs.org/}
  */
-
 const dotenv = require('dotenv');
 const { useMappers } = require('utils/knex-mappers');
 
 const { activateMappers, deactivateMappers, ...mappers } = useMappers();
-
 dotenv.config();
 
 const KnexConfig = {

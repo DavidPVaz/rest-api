@@ -1,6 +1,7 @@
+const Knex = require('knex');
 const KnexConfig = require('knexfile');
 const { Model } = require('objection');
-const { getTableSeeds } = require('db/seeds/development');
+const { getTableSeeds } = require('db/seeds/development/importer');
 
 /**
  * Initializes a database connection.
@@ -8,7 +9,8 @@ const { getTableSeeds } = require('db/seeds/development');
  * @returns the initialized database connection.
  */
 exports.init = async function () {
-    const { knex, activateMappers, deactivateMappers } = KnexConfig('testing');
+    const { config, activateMappers, deactivateMappers } = KnexConfig('testing');
+    const knex = Knex(config);
     deactivateMappers();
     await knex.migrate.latest();
     activateMappers();
@@ -58,15 +60,24 @@ exports.truncate = async function (knex) {
  * Populates the tables of a database.
  * @async
  * @param {Object} knex the database connection.
- * @param {string[]} seeds the tables to seed.
+ * @param {string[]} tables the table seeds to use.
  */
-exports.populate = async function (knex, seeds) {
+exports.populate = async function (knex, tables) {
     await knex.raw('PRAGMA foreign_keys = OFF');
 
-    for (const table of seeds) {
-        const insertSeeds = getTableSeeds(table);
-        await knex(table).insert(insertSeeds);
-    }
+    const seeds = await getTableSeeds(...tables);
+
+    await Promise.all(
+        seeds.reduce(
+            (queries, tableData) => [
+                ...queries,
+                ...Object.entries(tableData).map(([table, insertSeeds]) =>
+                    knex(table).insert(insertSeeds)
+                )
+            ],
+            []
+        )
+    );
 
     await knex.raw('PRAGMA foreign_keys = ON');
 };

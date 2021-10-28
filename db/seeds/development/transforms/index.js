@@ -1,4 +1,4 @@
-const moment = require('moment');
+const { add, sub, formatISO } = require('date-fns');
 
 const internals = {};
 
@@ -18,9 +18,9 @@ internals.getTransform = value => {
 
 // Holds every possible transformation to perform on a table's attribute
 internals.transforms = {
-    toRelativeDate: (amount, unit) => moment().add(amount, unit).toISOString(),
-    today: () => moment().toISOString(),
-    toRelativePastDate: (amount, unit) => moment().subtract(amount, unit).toISOString()
+    toRelativeDate: (amount, unit) => formatISO(add(new Date(), { [unit]: amount })),
+    today: () => formatISO(new Date()),
+    toRelativePastDate: (amount, unit) => formatISO(sub(new Date(), { [unit]: amount }))
 };
 
 /**

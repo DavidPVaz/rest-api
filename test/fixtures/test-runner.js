@@ -22,10 +22,8 @@ exports.script = function () {
     const options = {};
     const callbacks = {};
 
-    lab.describe = (title, content, { seeds = [], models = [], plugins = [] } = {}) => {
+    lab.describe = (title, content, { seeds = [] } = {}) => {
         options.seeds = seeds;
-        options.models = models;
-        options.plugins = plugins;
 
         describe(title, () => {
             content();
@@ -60,20 +58,19 @@ exports.script = function () {
         });
     };
 
-    lab.it = (title, test, { seeds, models, plugins, overwrite = false } = {}) => {
-        const toMerge = { seeds, models, plugins };
-        const [seedsToUse, modelsToUse, pluginsToUse] = Object.entries(toMerge).map(
-            ([key, values]) =>
-                !!values && overwrite ? values : [...(values || []), ...options[key]]
+    lab.it = (title, test, { seeds, overwrite = false } = {}) => {
+        const toMerge = { seeds };
+        const [seedsToUse] = Object.entries(toMerge).map(([key, values]) =>
+            !!values && overwrite ? values : [...(values || []), ...options[key]]
         );
 
-        if (!seedsToUse.length && !modelsToUse.length) {
+        if (!seedsToUse.length) {
             it(title, test);
             return;
         }
 
         it(title, async flags => {
-            const server = await ServerFixture.init(modelsToUse, pluginsToUse);
+            const server = await ServerFixture.init();
             await DatabaseFixture.populate(knex, seedsToUse);
 
             try {

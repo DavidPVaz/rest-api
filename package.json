@@ -6,8 +6,8 @@
     "scripts": {
         "start": "NODE_PATH=$NODE_PATH:lib:. TZ=UTC node lib/index.js",
         "watch": "NODE_PATH=$NODE_PATH:lib:. TZ=UTC DEBUG=true nodemon --watch lib lib/index.js",
-        "test": "NODE_PATH=$NODE_PATH:lib:. TZ=UTC node -r ./node_modules/.bin/lab --environment testing",
-        "test:grep": "NODE_PATH=$NODE_PATH:llib:. TZ=UTC node -r ./node_modules/.bin/lab --environment testing --coverage-path none --grep",
+        "test": "NODE_PATH=$NODE_PATH:lib:. TZ=UTC ./node_modules/.bin/lab",
+        "test:grep": "NODE_PATH=$NODE_PATH:lib:. TZ=UTC ./node_modules/.bin/lab --coverage-path none --grep",
         "reset": "NODE_PATH=$NODE_PATH:lib:. TZ=UTC node lib/utils/schema.js"
     },
     "repository": {
@@ -24,9 +24,11 @@
         "@hapi/boom": "^9.1.4",
         "@hapi/glue": "^8.0.0",
         "@hapi/hapi": "^20.2.1",
+        "@hapi/hoek": "^9.2.1",
         "@hapi/inert": "^6.0.4",
         "@hapi/vision": "^6.1.0",
         "bcrypt": "^5.0.1",
+        "date-fns": "^2.25.0",
         "dotenv": "^10.0.0",
         "hapi-auth-jwt2": "^10.2.0",
         "hapi-pino": "^8.5.0",
@@ -48,6 +50,9 @@
         "csv-parser": "^3.0.0",
         "eslint": "^8.1.0",
         "eslint-config-prettier": "^8.3.0",
-        "nodemon": "^2.0.14"
+        "eslint-plugin-prettier": "^4.0.0",
+        "nodemon": "^2.0.14",
+        "prettier": "^2.4.1",
+        "sqlite3": "^5.0.2"
     }
 }

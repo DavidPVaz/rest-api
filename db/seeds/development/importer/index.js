@@ -119,12 +119,11 @@ exports.seed = async function (knex) {
             seeds.reduce(
                 (queries, tableData) => [
                     ...queries,
-                    ...Object.keys(tableData).map(tableName => {
-                        const seeds = tableData[tableName];
-                        return seeds.length > internals.MAX_SEEDS_SIZE
-                            ? tx.batchInsert(tableName, seeds, internals.MAX_SEEDS_SIZE)
-                            : tx(tableName).insert(seeds);
-                    })
+                    ...Object.entries(tableData).map(([tableName, insertSeeds]) =>
+                        insertSeeds.length > internals.MAX_SEEDS_SIZE
+                            ? tx.batchInsert(tableName, insertSeeds, internals.MAX_SEEDS_SIZE)
+                            : tx(tableName).insert(insertSeeds)
+                    )
                 ],
                 []
             )
