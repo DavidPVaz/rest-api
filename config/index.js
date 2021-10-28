@@ -4,10 +4,17 @@
 const crypto = require('crypto');
 const fs = require('fs');
 
+exports.prefixes = {
+    api: '/api'
+};
+
+exports.debug = process.env.DEBUG || false;
+exports.environment = process.env.NODE_ENV || 'development';
 /**
  * `Secret` used to generate Json Web Token.
  */
 exports.secret = crypto.randomBytes(256).toString('base64');
+
 /**
  * Server API props
  */
