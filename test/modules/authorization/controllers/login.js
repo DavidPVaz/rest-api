@@ -1,33 +1,17 @@
-const Lab = require('@hapi/lab');
-const Hapi = require('@hapi/hapi');
 const Sinon = require('sinon');
-const LoginCtrl = require('modules/authorization/controllers/login');
+const LoginController = require('modules/authorization/controllers/login');
 const APIError = require('errors/api-error');
-const Logger = require('test/fixtures/logger-plugin');
 const UserService = require('modules/authorization/services/user');
+const TestRunner = require('test/fixtures/test-runner');
 
-const { beforeEach, describe, expect, it } = (exports.lab = Lab.script());
+const { describe, it, expect } = (exports.lab = TestRunner.script());
 
 describe('Controller: login', () => {
     // created using npm run token
     const token =
         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MCwidmVyc2lvbiI6MSwiaWF0IjoxNTI5OTQ4MjgyLCJleHAiOjE1Mjk5NTE4ODIsImF1ZCI6WyJub2lyZTphdXRoIl19.9QZNHh9rn0KFMxmxu8g-3sC4_G0Ompgy28c_DgicljQ';
 
-    let server;
-
-    beforeEach(async () => {
-        // make server quiet, 500s are rethrown and logged by default..
-        server = Hapi.server({ debug: { log: false, request: false } });
-        await server.register(Logger);
-
-        server.route({
-            method: 'POST',
-            path: '/login',
-            config: { handler: LoginCtrl.login }
-        });
-    });
-
-    it('rejects login with invalid username', async flags => {
+    it('rejects login with invalid username', async (server, flags) => {
         // cleanup
         flags.onCleanup = function () {
             UserService.authenticate.restore();
@@ -38,6 +22,11 @@ describe('Controller: login', () => {
         const authenticateStub = Sinon.stub(UserService, 'authenticate')
             .withArgs(credentials)
             .rejects(APIError.AUTH_INVALID_CREDENTIALS());
+        server.route({
+            method: 'POST',
+            path: '/login',
+            config: { handler: LoginController.login }
+        });
 
         // exercise
         const response = await server.inject({
@@ -53,7 +42,7 @@ describe('Controller: login', () => {
         expect(response.result.message).to.equal(APIError.AUTH_INVALID_CREDENTIALS().message);
     });
 
-    it('rejects login with invalid password', async flags => {
+    it('rejects login with invalid password', async (server, flags) => {
         // cleanup
         flags.onCleanup = function () {
             UserService.authenticate.restore();
@@ -64,6 +53,11 @@ describe('Controller: login', () => {
         const authenticateStub = Sinon.stub(UserService, 'authenticate')
             .withArgs(credentials)
             .rejects(APIError.AUTH_INVALID_CREDENTIALS());
+        server.route({
+            method: 'POST',
+            path: '/login',
+            config: { handler: LoginController.login }
+        });
 
         // exercise
         const response = await server.inject({
@@ -79,7 +73,7 @@ describe('Controller: login', () => {
         expect(response.result.message).to.equal(APIError.AUTH_INVALID_CREDENTIALS().message);
     });
 
-    it('handles internal server errors', async flags => {
+    it('handles internal server errors', async (server, flags) => {
         // cleanup
         flags.onCleanup = function () {
             UserService.authenticate.restore();
@@ -87,9 +81,12 @@ describe('Controller: login', () => {
 
         // setup
         const credentials = { username: 'test', password: 'test' };
-        const authenticateStub = Sinon.stub(UserService, 'authenticate').rejects(
-            APIError.AUTH_ERROR()
-        );
+        const authenticateStub = Sinon.stub(UserService, 'authenticate').rejects(new Error());
+        server.route({
+            method: 'POST',
+            path: '/login',
+            config: { handler: LoginController.login }
+        });
 
         // exercise
         const response = await server.inject({
@@ -104,7 +101,7 @@ describe('Controller: login', () => {
         expect(response.result.message).to.equal('An internal server error occurred');
     });
 
-    it('login user with valid credentials', async flags => {
+    it('login user with valid credentials', async (server, flags) => {
         // cleanup
         flags.onCleanup = function () {
             UserService.authenticate.restore();
@@ -115,6 +112,11 @@ describe('Controller: login', () => {
         const authenticateStub = Sinon.stub(UserService, 'authenticate')
             .withArgs(credentials)
             .resolves(token);
+        server.route({
+            method: 'POST',
+            path: '/login',
+            config: { handler: LoginController.login }
+        });
 
         // exercise
         const response = await server.inject({

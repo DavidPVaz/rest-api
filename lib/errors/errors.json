@@ -31,7 +31,6 @@
         "message": "resource is not in a valid state for this action",
         "statusCode": 409
     },
-    "AUTH_ERROR": "authentication error",
     "MAILER_ERROR": "mailer error",
     "AUTH_CRYPT_ERROR": "encryption error",
     "RESOURCE_FETCH": "error fetching resource",
