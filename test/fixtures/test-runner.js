@@ -64,17 +64,26 @@ exports.script = function () {
             !!values && overwrite ? values : [...(values || []), ...options[key]]
         );
 
+        // used by controllers
         if (!seedsToUse.length) {
-            it(title, test);
+            it(title, async flags => {
+                const server = await ServerFixture.init();
+                try {
+                    await test(server, flags);
+                } finally {
+                    await ServerFixture.destroy(server);
+                }
+            });
             return;
         }
 
+        // used by services
         it(title, async flags => {
             const server = await ServerFixture.init();
             await DatabaseFixture.populate(knex, seedsToUse);
 
             try {
-                await test(flags, knex);
+                await test(server, flags, knex);
             } finally {
                 await DatabaseFixture.truncate(knex);
                 await ServerFixture.destroy(server);

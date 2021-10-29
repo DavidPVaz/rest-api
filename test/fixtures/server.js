@@ -1,12 +1,18 @@
 const Hapi = require('@hapi/hapi');
+const Logger = require('test/fixtures/logger-plugin');
 
 /**
  * Initializes a server.
  * @async
- * @param {string[]} models the domain models.
  * @returns server the initialized server.
  */
-exports.init = () => Hapi.server();
+exports.init = () => {
+    const server = Hapi.server();
+    const defaultPlugins = [Logger];
+
+    defaultPlugins.forEach(plugin => server.register(plugin));
+    return server;
+};
 
 /**
  * Destroys a server.

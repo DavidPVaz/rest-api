@@ -8,7 +8,10 @@
         "watch": "NODE_PATH=$NODE_PATH:lib:. TZ=UTC DEBUG=true nodemon --watch lib lib/index.js",
         "test": "NODE_PATH=$NODE_PATH:lib:. TZ=UTC ./node_modules/.bin/lab",
         "test:grep": "NODE_PATH=$NODE_PATH:lib:. TZ=UTC ./node_modules/.bin/lab --coverage-path none --grep",
-        "reset": "NODE_PATH=$NODE_PATH:lib:. TZ=UTC node lib/utils/schema.js"
+        "reset": "NODE_PATH=$NODE_PATH:lib:. TZ=UTC node lib/utils/schema.js",
+        "secret": "NODE_PATH=$NODE_PATH:lib:. node lib/utils/auth.js secret",
+        "token": "NODE_PATH=$NODE_PATH:lib:. node lib/utils/auth.js token",
+        "hash": "NODE_PATH=$NODE_PATH:lib:. node lib/utils/auth.js hash"
     },
     "repository": {
         "type": "git",
@@ -53,6 +56,7 @@
         "eslint-plugin-prettier": "^4.0.0",
         "nodemon": "^2.0.14",
         "prettier": "^2.4.1",
+        "sinon": "^11.1.2",
         "sqlite3": "^5.0.2"
     }
 }
