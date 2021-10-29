@@ -35,7 +35,7 @@ describe('Controller: login', () => {
             payload: credentials
         });
 
-        // validate
+        // verify
         expect(authenticateStub.calledOnce).to.be.true();
         expect(response.statusCode).to.equal(401);
         expect(response.statusMessage).to.equal('Unauthorized');
@@ -66,7 +66,7 @@ describe('Controller: login', () => {
             payload: credentials
         });
 
-        // validate
+        // verify
         expect(authenticateStub.calledOnce).to.be.true();
         expect(response.statusCode).to.equal(401);
         expect(response.statusMessage).to.equal('Unauthorized');
@@ -95,6 +95,7 @@ describe('Controller: login', () => {
             payload: credentials
         });
 
+        // verify
         expect(authenticateStub.calledOnce).to.be.true();
         expect(response.statusCode).to.equal(500);
         expect(response.statusMessage).to.equal('Internal Server Error');
@@ -125,6 +126,7 @@ describe('Controller: login', () => {
             payload: credentials
         });
 
+        // verify
         expect(authenticateStub.calledOnce).to.be.true();
         expect(response.statusCode).to.equal(204);
         expect(response.statusMessage).to.equal('No Content');
