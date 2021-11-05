@@ -22,8 +22,9 @@ exports.script = function () {
     const options = {};
     const callbacks = {};
 
-    lab.describe = (title, content, { seeds = [] } = {}) => {
+    lab.describe = (title, content, { seeds = [], models = [] } = {}) => {
         options.seeds = seeds;
+        options.models = models;
 
         describe(title, () => {
             content();
@@ -58,14 +59,14 @@ exports.script = function () {
         });
     };
 
-    lab.it = (title, test, { seeds, overwrite = false } = {}) => {
-        const toMerge = { seeds };
-        const [seedsToUse] = Object.entries(toMerge).map(([key, values]) =>
+    lab.it = (title, test, { seeds, models, overwrite = false } = {}) => {
+        const toMerge = { seeds, models };
+        const [seedsToUse, modelsToUse] = Object.entries(toMerge).map(([key, values]) =>
             !!values && overwrite ? values : [...(values || []), ...options[key]]
         );
 
         // used by controllers
-        if (!seedsToUse.length) {
+        if (!seedsToUse.length && !modelsToUse.length) {
             it(title, async flags => {
                 const server = await ServerFixture.init();
                 try {
@@ -79,11 +80,11 @@ exports.script = function () {
 
         // used by services
         it(title, async flags => {
-            const server = await ServerFixture.init();
+            const server = await ServerFixture.init(modelsToUse);
             await DatabaseFixture.populate(knex, seedsToUse);
 
             try {
-                await test(server, flags, knex);
+                await test(flags, knex);
             } finally {
                 await DatabaseFixture.truncate(knex);
                 await ServerFixture.destroy(server);

@@ -1,7 +1,6 @@
 /**
  * @module Config
  */
-
 const fs = require('fs');
 
 exports.prefixes = {
@@ -37,3 +36,11 @@ exports.documentationTags = [
         routesPath: 'modules/authorization/routes'
     }
 ];
+
+/**
+ * Domain models settings
+ */
+exports.models = {
+    path: 'lib/models',
+    modules: ['authorization']
+};
