@@ -120,7 +120,7 @@ describe(
                 // exercise
                 const result = await UserService.create(newUser);
 
-                //TODO find a way to omit password from the model
+                //TODO find  a way to omit password from the model
                 // verify
                 expect(result).to.be.instanceOf(UserModel);
                 expect(result.id).to.be.number();
