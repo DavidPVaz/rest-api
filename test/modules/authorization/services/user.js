@@ -78,7 +78,10 @@ describe(
             // verify
             expect(result).to.be.array();
             expect(result).to.have.length(expectedIds.length);
-            result.forEach(({ id }) => expect(expectedIds.includes(id)).to.be.true());
+            result.forEach(user => {
+                expect(expectedIds.includes(user.id)).to.be.true();
+                expect(user.password).to.be.undefined();
+            });
         });
 
         it('should find an user by id', async () => {
@@ -94,13 +97,12 @@ describe(
             // exercise
             const result = await UserService.findById(expectedUser.id);
 
-            //TODO find a way to omit password from the model
             // verify
             expect(result).to.be.instanceOf(UserModel);
+            expect(result.password).to.be.undefined();
             Object.entries(expectedUser).forEach(([property, value]) =>
                 expect(result[property]).to.be.equal(value)
             );
-            //expect(result.password).to.be.undefined();
         });
 
         it('should find an user by some value', async () => {
@@ -116,13 +118,12 @@ describe(
             // exercise
             const result = await UserService.findOne({ email: expectedUser.email });
 
-            //TODO find a way to omit password from the model
             // verify
             expect(result).to.be.instanceOf(UserModel);
+            expect(result.password).to.be.undefined();
             Object.entries(expectedUser).forEach(([property, value]) =>
                 expect(result[property]).to.be.equal(value)
             );
-            //expect(result.password).to.be.undefined();
         });
 
         it(
@@ -150,16 +151,15 @@ describe(
                 // exercise
                 const result = await UserService.findOne({ email: expectedUser.email }, criteria);
 
-                //TODO find a way to omit password from the model
                 // verify
                 expect(result).to.be.instanceOf(UserModel);
+                expect(result.password).to.be.undefined();
                 expect(result.roles).to.be.array();
                 expect(result.roles.length).to.equal(expectedUser.roles.length);
                 expect(result.roles[0]).to.be.instanceOf(RoleModel);
                 Object.entries(expectedUser).forEach(([property, value]) =>
                     expect(result[property]).to.be.equal(value)
                 );
-                //expect(result.password).to.be.undefined();
             },
             { seeds: ['roles', 'users_roles'] }
         );
@@ -168,24 +168,24 @@ describe(
             'should create a new user',
             async () => {
                 // setup
+                const password = 'password';
                 const newUser = {
                     name: 'nice name',
                     username: 'username',
-                    email: 'email@gmail.com',
-                    password: 'password'
+                    email: 'CAPSEMAIL@gmail.com'
                 };
 
                 // exercise
-                const result = await UserService.create(newUser);
+                const result = await UserService.create({ password, ...newUser });
 
-                //TODO find  a way to omit password from the model
                 // verify
                 expect(result).to.be.instanceOf(UserModel);
                 expect(result.id).to.be.number();
                 Object.entries(newUser).forEach(([property, value]) =>
-                    expect(result[property]).to.be.equal(value)
+                    expect(result[property]).to.be.equal(
+                        property === 'email' ? value.toLowerCase() : value
+                    )
                 );
-                //expect(result.password).to.be.undefined();
             },
             { seeds: [], overwrite: true }
         );
@@ -227,14 +227,12 @@ describe(
             // exercise
             const result = await UserService.update(id, user);
 
-            //TODO find  a way to omit password from the model
             // verify
             expect(result).to.be.instanceOf(UserModel);
             expect(result.id).to.be.equal(id);
             Object.entries(user).forEach(([property, value]) =>
                 expect(result[property]).to.be.equal(value)
             );
-            //expect(result.password).to.be.undefined();
         });
 
         it(

@@ -84,7 +84,7 @@ exports.script = function () {
             await DatabaseFixture.populate(knex, seedsToUse);
 
             try {
-                await test(flags, knex);
+                await test(knex, flags);
             } finally {
                 await DatabaseFixture.truncate(knex);
                 await ServerFixture.destroy(server);
