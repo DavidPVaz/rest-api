@@ -177,7 +177,8 @@ describe(
             const user = {
                 name: 'nice name',
                 username: 'super username',
-                email: 'email@gmail.com'
+                email: 'email@gmail.com',
+                password: 'pretty pass'
             };
 
             // exercise
