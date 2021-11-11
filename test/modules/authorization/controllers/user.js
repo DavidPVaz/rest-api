@@ -228,17 +228,17 @@ describe('Controller: user', () => {
     it('updates a user', async (server, flags) => {
         // cleanup
         flags.onCleanup = function () {
-            UserService.edit.restore();
+            UserService.update.restore();
         };
 
         // setup
         const entity = { username: 'username', name: 'name' };
-        const editStub = Sinon.stub(UserService, 'edit').returns(entity);
+        const editStub = Sinon.stub(UserService, 'update').returns(entity);
         server.route({
             method: 'PUT',
             path: '/user/{id}',
             config: {
-                handler: UserController.edit
+                handler: UserController.update
             }
         });
 
@@ -259,17 +259,17 @@ describe('Controller: user', () => {
     it('does not update an user if the user does not exist', async (server, flags) => {
         // cleanup
         flags.onCleanup = function () {
-            UserService.edit.restore();
+            UserService.update.restore();
         };
 
         // setup
         const entity = { username: 'username', name: 'name' };
-        const editStub = Sinon.stub(UserService, 'edit').rejects(APIError.RESOURCE_NOT_FOUND());
+        const editStub = Sinon.stub(UserService, 'update').rejects(APIError.RESOURCE_NOT_FOUND());
         server.route({
             method: 'PUT',
             path: '/user/{id}',
             config: {
-                handler: UserController.edit
+                handler: UserController.update
             }
         });
 
@@ -290,17 +290,17 @@ describe('Controller: user', () => {
     it('does not update an user with already existing values', async (server, flags) => {
         // cleanup
         flags.onCleanup = function () {
-            UserService.edit.restore();
+            UserService.update.restore();
         };
 
         // setup
         const entity = { username: 'username', name: 'name' };
-        const editStub = Sinon.stub(UserService, 'edit').rejects(APIError.RESOURCE_DUPLICATE());
+        const editStub = Sinon.stub(UserService, 'update').rejects(APIError.RESOURCE_DUPLICATE());
         server.route({
             method: 'PUT',
             path: '/user/{id}',
             config: {
-                handler: UserController.edit
+                handler: UserController.update
             }
         });
 
@@ -321,17 +321,17 @@ describe('Controller: user', () => {
     it('handles server errors when updating an user', async (server, flags) => {
         // cleanup
         flags.onCleanup = function () {
-            UserService.edit.restore();
+            UserService.update.restore();
         };
 
         // setup
         const entity = { username: 'username', name: 'name' };
-        const editStub = Sinon.stub(UserService, 'edit').rejects(APIError.RESOURCE_FETCH());
+        const editStub = Sinon.stub(UserService, 'update').rejects(APIError.RESOURCE_FETCH());
         server.route({
             method: 'PUT',
             path: '/user/{id}',
             config: {
-                handler: UserController.edit
+                handler: UserController.update
             }
         });
 

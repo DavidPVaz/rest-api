@@ -8,8 +8,6 @@ module.exports = {
     'coverage-path': 'lib',
     'coverage-exclude': ['config', 'db'],
     paths: ['test/models', 'test/modules'],
-    // TODO: track/fix global leaks
-    // __core-js_shared__ -> https://github.com/tgriesser/knex/issues/1720
-    // CSS -> https://github.com/glennjones/hapi-swagger/issues/534
-    globals: 'core,regeneratorRuntime,_babelPolyfill,__core-js_shared__,CSS'
+    globals:
+        'core,regeneratorRuntime,_babelPolyfill,__core-js_shared__,CSS,__extends,__assign,__rest,__decorate,__param,__metadata,__awaiter,__generator,__exportStar,__createBinding,__values,__read,__spread,__spreadArrays,__spreadArray,__await,__asyncGenerator,__asyncDelegator,__asyncValues,__makeTemplateObject,__importStar,__importDefault,__classPrivateFieldGet,__classPrivateFieldSet'
 };
