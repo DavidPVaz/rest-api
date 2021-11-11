@@ -1,7 +1,9 @@
+const Config = require('config');
 const TestRunner = require('test/fixtures/test-runner');
 const UserService = require('modules/authorization/services/user');
 const UserModel = require('models/authorization/user');
 const RoleModel = require('models/authorization/role');
+const Authentication = require('utils/auth');
 const APIError = require('errors/api-error');
 
 const { describe, it, expect } = (exports.lab = TestRunner.script());
@@ -11,6 +13,49 @@ const emailErrorMessage = 'That email already exists';
 describe(
     'Service: user',
     () => {
+        it('should authenticate an user', async () => {
+            // setup
+            const user = {
+                username: 'admin',
+                password: 'admin'
+            };
+            const expected = Authentication.getToken(1, Config.authentication.renewIn);
+
+            // exercise
+            const result = await UserService.authenticate(user);
+
+            // verify
+            expect(result).to.be.equal(expected);
+        });
+
+        it('does not authenticate an user with invalid username', async () => {
+            // setup
+            const user = {
+                username: 'invalid',
+                password: 'admin'
+            };
+
+            // exercise and verify
+            await expect(UserService.authenticate(user)).to.reject(
+                Error,
+                APIError.AUTH_INVALID_CREDENTIALS().message
+            );
+        });
+
+        it('does not authenticate an user with invalid password', async () => {
+            // setup
+            const user = {
+                username: 'admin',
+                password: 'invalid'
+            };
+
+            // exercise and verify
+            await expect(UserService.authenticate(user)).to.reject(
+                Error,
+                APIError.AUTH_INVALID_CREDENTIALS().message
+            );
+        });
+
         it('should count users', async () => {
             // setup
             const expectedCount = 3;
@@ -176,8 +221,6 @@ describe(
             const id = 2;
             const user = {
                 name: 'nice name',
-                username: 'super username',
-                email: 'email@gmail.com',
                 password: 'pretty pass'
             };
 
