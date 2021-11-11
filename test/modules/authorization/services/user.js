@@ -13,7 +13,7 @@ describe(
     () => {
         it('should count users', async () => {
             // setup
-            const expectedCount = 2;
+            const expectedCount = 3;
 
             // exercise
             const result = await UserService.count();
@@ -25,7 +25,7 @@ describe(
 
         it('should list users', async () => {
             // setup
-            const expectedIds = [1, 2];
+            const expectedIds = [1, 2, 3];
 
             // exercise
             const result = await UserService.list();
