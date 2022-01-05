@@ -34,10 +34,6 @@ exports.destroy = async function (knex) {
  * @param {Object} knex the database connection.
  */
 exports.truncate = async function (knex) {
-    // Would be simpler to simply rollback knex migration after each test, dropping all tables.
-    // However, some migrations are not successfully dropping foreign key constrained columns.
-
-    // A different approach will provide a better performance, despite being more complex:
     // 1) Disable all FOREIGN KEY constraint checks.
     // 2) Truncate all populated tables created in our migrations.
     // 3) Enable all FOREIGN KEY constraint checks.
