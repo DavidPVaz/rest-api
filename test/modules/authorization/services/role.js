@@ -224,7 +224,7 @@ describe(
             async () => {
                 // setup
                 const id = 1;
-                const permissionIds = [2, 5, 6, 10]; // last permission id does not exist
+                const permissionIds = [2, 5, 6, 17]; // last permission id does not exist
 
                 // exercice and verify
                 await expect(RoleService.upsertPermissions(id, permissionIds)).to.reject(

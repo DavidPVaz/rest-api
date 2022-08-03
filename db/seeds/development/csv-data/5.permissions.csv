@@ -7,3 +7,8 @@ id,action,description,resource_id
 6,read,Fetch a role,2
 7,update,Update an existing role,2
 8,delete,Delete a role,2
+9,create,Create a new permission,3
+10,read,Fetch a permission,3
+11,update,Update an existing permission,3
+12,delete,Delete a permission,3
+
