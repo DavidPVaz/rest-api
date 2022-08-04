@@ -11,4 +11,3 @@ id,action,description,resource_id
 10,read,Fetch a permission,3
 11,update,Update an existing permission,3
 12,delete,Delete a permission,3
-
