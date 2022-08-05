@@ -294,6 +294,60 @@ describe(
             },
             { seeds: [], overwrite: true }
         );
+
+        it("should not upsert a user's roles if the user doesn't exist", async () => {
+            // setup
+            const id = 0;
+
+            // exercice and verify
+            await expect(UserService.upsertRoles(id, [])).to.reject(
+                Error,
+                APIError.RESOURCE_NOT_FOUND().message
+            );
+        });
+
+        it(
+            "should not upsert a user's roles if the role doesn't exist",
+            async () => {
+                // setup
+                const id = 1;
+                const roleIds = [1, 3]; // last role id does not exist
+
+                // exercice and verify
+                await expect(UserService.upsertRoles(id, roleIds)).to.reject(
+                    Error,
+                    APIError.RESOURCE_NOT_FOUND().message
+                );
+            },
+            { seeds: ['roles'], models: ['authorization/role'] }
+        );
+
+        it(
+            "should upsert a role's permissions ",
+            async () => {
+                // setup
+                const expectedUser = {
+                    id: 1,
+                    username: 'admin',
+                    email: 'admin@gmail.com'
+                };
+                const roleIds = [2];
+
+                // exercice
+                const result = await UserService.upsertRoles(expectedUser.id, roleIds);
+
+                // verify
+                expect(result.roles.length).to.equal(roleIds.length);
+                result.roles.forEach(role => {
+                    expect(role).to.be.instanceOf(RoleModel);
+                    expect(roleIds).to.include(role.id);
+                });
+                Object.entries(expectedUser).forEach(([property, value]) =>
+                    expect(result[property]).to.be.equal(value)
+                );
+            },
+            { seeds: ['roles'], models: ['authorization/role'] }
+        );
     },
     {
         seeds: ['users'],

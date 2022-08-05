@@ -435,4 +435,99 @@ describe('Controller: user', () => {
         expect(response.statusMessage).to.equal(statusCodeMessage);
         expect(response.result.message).to.equal(resultMessage);
     });
+
+    it("updates a user's roles", async (server, flags) => {
+        // cleanup
+        flags.onCleanup = function () {
+            UserService.upsertRoles.restore();
+        };
+
+        // setup
+        const entity = {};
+        const editStub = Sinon.stub(UserService, 'upsertRoles').returns(Promise.resolve());
+        server.route({
+            method: 'PUT',
+            path: '/user/{id}/roles',
+            config: {
+                handler: UserController.upsertRoles
+            }
+        });
+
+        // exercise
+        const response = await server.inject({
+            method: 'PUT',
+            url: '/user/1/roles',
+            payload: entity
+        });
+
+        // verify
+        expect(editStub.calledOnce).to.be.true();
+        expect(response.statusCode).to.equals(204);
+        expect(response.statusMessage).to.equal('No Content');
+        expect(response.result).to.be.null();
+    });
+
+    it("does not update a user's roles if the user does not exist", async (server, flags) => {
+        // cleanup
+        flags.onCleanup = function () {
+            UserService.upsertRoles.restore();
+        };
+
+        // setup
+        const entity = {};
+        const editStub = Sinon.stub(UserService, 'upsertRoles').rejects(
+            APIError.RESOURCE_NOT_FOUND()
+        );
+        server.route({
+            method: 'PUT',
+            path: '/user/{id}/roles',
+            config: {
+                handler: UserController.upsertRoles
+            }
+        });
+
+        // exercise
+        const response = await server.inject({
+            method: 'PUT',
+            url: '/user/0/roles',
+            payload: entity
+        });
+
+        // verify
+        expect(editStub.calledOnce).to.be.true();
+        expect(response.statusCode).to.equals(404);
+        expect(response.statusMessage).to.equal('Not Found');
+        expect(response.result.message).to.equal(APIError.RESOURCE_NOT_FOUND().message);
+    });
+
+    it("handles server errors when updating a user's roles", async (server, flags) => {
+        // cleanup
+        flags.onCleanup = function () {
+            UserService.upsertRoles.restore();
+        };
+
+        // setup
+        const entity = {};
+        const editStub = Sinon.stub(UserService, 'upsertRoles').rejects(APIError.RESOURCE_FETCH());
+        server.route({
+            method: 'PUT',
+            path: '/user/{id}/roles',
+            config: {
+                handler: UserController.upsertRoles
+            }
+        });
+
+        // exercise
+        const response = await server.inject({
+            method: 'PUT',
+            url: '/user/1/roles',
+            payload: entity
+        });
+
+        //verify
+        expect(editStub.calledOnce).to.be.true();
+        expect(response.statusCode).to.equal(500);
+        expect(response.statusMessage).to.equal(statusCodeMessage);
+        expect(response.result.message).to.equal(resultMessage);
+    });
 });
