@@ -10,7 +10,7 @@ describe(
     () => {
         it('should count permissions', async () => {
             // setup
-            const expectedCount = 12;
+            const expectedCount = 11;
 
             // exercise
             const result = await PermissionService.count();
@@ -22,7 +22,7 @@ describe(
 
         it('should list permissions', async () => {
             // setup
-            const expectedIds = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+            const expectedIds = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
 
             // exercise
             const result = await PermissionService.list();
