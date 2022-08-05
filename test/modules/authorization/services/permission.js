@@ -52,6 +52,17 @@ describe(
             );
         });
 
+        it('should not find a permission that does not exist', async () => {
+            // setup
+            const id = 0;
+
+            // exercise and verify
+            await expect(PermissionService.findById(id)).to.reject(
+                Error,
+                APIError.RESOURCE_NOT_FOUND().message
+            );
+        });
+
         it('should find a permission by some value', async () => {
             // setup
             const expectedPermission = {

@@ -26,8 +26,8 @@ exports.api = {
         maxAge: 3600
     },
     tls: {
-        key: fs.readFileSync('config/tls/server.key'),
-        cert: fs.readFileSync('config/tls/server.crt')
+        key: fs.readFileSync('config/tls/key.pem'),
+        cert: fs.readFileSync('config/tls/cert.pem')
     }
 };
 /**

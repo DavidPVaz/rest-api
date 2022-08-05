@@ -17,7 +17,7 @@ describe(
             // setup
             const user = {
                 username: 'admin',
-                password: 'admin'
+                password: 'adminadmin'
             };
             const expected = Authentication.getToken(1, Config.authentication.renewIn);
 
@@ -58,7 +58,7 @@ describe(
 
         it('should count users', async () => {
             // setup
-            const expectedCount = 3;
+            const expectedCount = 2;
 
             // exercise
             const result = await UserService.count();
@@ -70,7 +70,7 @@ describe(
 
         it('should list users', async () => {
             // setup
-            const expectedIds = [1, 2, 3];
+            const expectedIds = [1, 2];
 
             // exercise
             const result = await UserService.list();
@@ -102,6 +102,17 @@ describe(
             expect(result.password).to.be.undefined();
             Object.entries(expectedUser).forEach(([property, value]) =>
                 expect(result[property]).to.be.equal(value)
+            );
+        });
+
+        it('should not find an user that does not exist', async () => {
+            // setup
+            const id = 0;
+
+            // exercise and verify
+            await expect(UserService.findById(id)).to.reject(
+                Error,
+                APIError.RESOURCE_NOT_FOUND().message
             );
         });
 

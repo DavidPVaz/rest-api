@@ -53,6 +53,17 @@ describe(
             );
         });
 
+        it('should not find a role that does not exist', async () => {
+            // setup
+            const id = 0;
+
+            // exercise and verify
+            await expect(RoleService.findById(id)).to.reject(
+                Error,
+                APIError.RESOURCE_NOT_FOUND().message
+            );
+        });
+
         it('should find a role by some value', async () => {
             // setup
             const expectedRole = {
