@@ -1,7 +1,10 @@
 /**
  * @module Config
  */
+const dotenv = require('dotenv');
 const fs = require('fs');
+
+dotenv.config();
 
 exports.prefixes = {
     api: '/api'
