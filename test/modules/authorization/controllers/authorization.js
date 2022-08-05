@@ -7,19 +7,19 @@ const { describe, it, expect } = (exports.lab = TestRunner.script());
 
 describe('Controller: authorization', () => {
     const action = 'read';
-    const resource = 'role';
+    const resource = 'user';
     const username = 'username';
     const fakeResult = 'ok';
     const fakeRoute = {
-        path: '/',
+        path: '/api/user',
         method: 'GET',
         config: {
             handler: () => fakeResult,
-            pre: [AuthorizationController.authorize(resource, action)]
+            pre: [AuthorizationController.authorize()]
         }
     };
 
-    it('authorizes user to access resource with explicit action', async (server, flags) => {
+    it('authorizes user to access resource', async (server, flags) => {
         // cleanup
         flags.onCleanup = function () {
             AuthorizationService.canUser.restore();
@@ -32,7 +32,7 @@ describe('Controller: authorization', () => {
 
         // exercise
         const response = await server.inject({
-            url: '/',
+            url: '/api/user',
             auth: {
                 credentials: { username },
                 strategy: 'default'
@@ -60,7 +60,7 @@ describe('Controller: authorization', () => {
 
         // exercise
         const response = await server.inject({
-            url: '/',
+            url: '/api/user',
             auth: {
                 credentials: { username },
                 strategy: 'default'
@@ -88,7 +88,7 @@ describe('Controller: authorization', () => {
 
         // exercise
         const response = await server.inject({
-            url: '/',
+            url: '/api/user',
             auth: {
                 credentials: { username },
                 strategy: 'default'
